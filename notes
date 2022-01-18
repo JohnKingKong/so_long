@@ -1,0 +1,7 @@
+Couleurs :
+	0xTTRRGGBB
+	fully transparent = 0xFFRRGGBB
+	fully opaque = 0x00RRGGBB
+	Red = 0xTTFFGGBB
+	Green = 0xTTRRFFBB
+	Blue = 0xTTRRGGFF
