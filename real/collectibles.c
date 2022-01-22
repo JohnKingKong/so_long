@@ -1,83 +1,74 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   assets.c                                           :+:      :+:    :+:   */
+/*   collectibles.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jvigneau <jvigneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/21 14:45:03 by jvigneau          #+#    #+#             */
-/*   Updated: 2022/01/22 16:14:07 by jvigneau         ###   ########.fr       */
+/*   Created: 2022/01/22 14:49:38 by jvigneau          #+#    #+#             */
+/*   Updated: 2022/01/22 16:07:52 by jvigneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "yolo.h"
+#include <stdio.h>
 
-int	tile_wall(t_vars *vars, int x, int y)
+int	collectible(t_vars *vars, int x, int y)
 {
 	char	*path;
 	int		img_width;
 	int		img_height;
 
-	path = "./wall1.xpm";
+	path = "./key.xpm";
 	vars->img.img = mlx_xpm_file_to_image(vars->mlx, path,
 			&img_width, &img_height);
 	mlx_put_image_to_window(vars->mlx, vars->mlx_win,
 		vars->img.img, x, y);
-	return (0);
+	return (TRUE);
 }
 
-int	render_player_right(t_vars *vars, int x, int y)
+int	render_chest(t_vars *vars, int x, int y)
 {
 	char	*path;
 	int		img_width;
 	int		img_height;
 
-	path = "./player_right.xpm";
+	path = "./chest_close.xpm";
 	vars->img.img = mlx_xpm_file_to_image(vars->mlx, path,
 			&img_width, &img_height);
 	mlx_put_image_to_window(vars->mlx, vars->mlx_win,
 		vars->img.img, x, y);
-	return (0);
+	return (TRUE);
 }
 
-int	render_player_left(t_vars *vars, int x, int y)
+int	open_chest(t_vars *vars, int x, int y)
 {
 	char	*path;
 	int		img_width;
 	int		img_height;
 
-	path = "./player_left.xpm";
+	path = "./chest_open.xpm";
 	vars->img.img = mlx_xpm_file_to_image(vars->mlx, path,
 			&img_width, &img_height);
 	mlx_put_image_to_window(vars->mlx, vars->mlx_win,
 		vars->img.img, x, y);
-	return (0);
+	return (TRUE);
 }
 
-int	render_player_up(t_vars *vars, int x, int y)
+int	collect_it(t_vars *vars)
 {
-	char	*path;
-	int		img_width;
-	int		img_height;
-
-	path = "./player_up.xpm";
-	vars->img.img = mlx_xpm_file_to_image(vars->mlx, path,
-			&img_width, &img_height);
-	mlx_put_image_to_window(vars->mlx, vars->mlx_win,
-		vars->img.img, x, y);
-	return (0);
+	if (vars->img.str[(vars->img.player_y / 32)]
+		[(vars->img.player_x / 32)] == 'C')
+	{
+		vars->img.has_key = TRUE;
+		return (TRUE);
+	}
+	return (FALSE);
 }
 
-int	render_player_down(t_vars *vars, int x, int y)
+int	chest(t_vars *vars)
 {
-	char	*path;
-	int		img_width;
-	int		img_height;
-
-	path = "./player_down.xpm";
-	vars->img.img = mlx_xpm_file_to_image(vars->mlx, path,
-			&img_width, &img_height);
-	mlx_put_image_to_window(vars->mlx, vars->mlx_win,
-		vars->img.img, x, y);
-	return (0);
+	if (vars->img.str[(vars->img.player_y / 32)][(vars->img.player_x / 32)] == 'Y')
+		return (TRUE);
+	return (FALSE);
 }

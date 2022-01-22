@@ -6,7 +6,7 @@
 /*   By: jvigneau <jvigneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 15:45:22 by jvigneau          #+#    #+#             */
-/*   Updated: 2022/01/21 15:08:26 by jvigneau         ###   ########.fr       */
+/*   Updated: 2022/01/22 16:11:52 by jvigneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	handle_keypress(int keysum, t_vars *vars)
 		player_up(vars);
 	if (keysum == kVK_DownArrow)
 		player_down(vars);
-	return (0);
+	return (TRUE);
 }
 
 int	x_toclose(t_vars *vars)
@@ -36,7 +36,7 @@ int	x_toclose(t_vars *vars)
 	mlx_destroy_window(vars->mlx, vars->mlx_win);
 	vars->mlx_win = NULL;
 	exit (0);
-	return (0);
+	return (TRUE);
 }
 
 int	render(t_vars *vars, char **str, int y, int cnt)
@@ -48,22 +48,24 @@ int	render(t_vars *vars, char **str, int y, int cnt)
 	{
 		if (str[cnt][x] == 'P')
 		{
-			vars->img.player_x = x * 64;
-			vars->img.player_y = y * 64;
-			player(vars, vars->img.player_x, vars->img.player_y);
+			vars->img.player_x = x * 32;
+			vars->img.player_y = y * 32;
+			render_player_right(vars, vars->img.player_x, vars->img.player_y);
 		}
-		if (str[cnt][x] == '1')
-			tile_wall(vars, x * 64, y * 64);
+		else if (str[cnt][x] == '1')
+			tile_wall(vars, x * 32, y * 32);
+		else if (str[cnt][x] == 'C')
+			collectible(vars, x * 32, y * 32);
+		else if (str[cnt][x] == 'Y')
+			render_chest(vars, x * 32, y * 32);
 		x++;
 	}
-	return (0);
+	return (TRUE);
 }
 
 int	read_map(t_vars *vars)
 {
-	char	*str[10000];
 	int		cnt;
-	int		x;
 	int		map;
 	int		y;
 
@@ -72,14 +74,13 @@ int	read_map(t_vars *vars)
 	map = open("./map.txt", O_RDONLY);
 	if (map < 0)
 		return (1);
-	str[cnt] = get_next_line(map);
-	while (str[cnt])
+	vars->img.str[cnt] = get_next_line(map);
+	while (vars->img.str[cnt])
 	{
-		render(vars, str, y, cnt);
+		render(vars, vars->img.str, y, cnt);
 		y++;
 		cnt++;
-		str[cnt] = get_next_line(map);
+		vars->img.str[cnt] = get_next_line(map);
 	}
-	return (0);
+	return (TRUE);
 }
-
