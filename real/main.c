@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvigneau <jvigneau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jvigneau <jvigneau@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/21 14:46:43 by jvigneau          #+#    #+#             */
-/*   Updated: 2022/01/22 14:17:49 by jvigneau         ###   ########.fr       */
+/*   Updated: 2022/01/23 13:33:46 by jvigneau         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,10 @@ int	main(void)
 {
 	t_vars	vars;
 
+	vars.img.has_key = 0;
+	vars.img.nb_keys = 0;
+	vars.img.is_chest = 0;
+	vars.img.has_chest = FALSE;
 	vars.mlx = mlx_init();
 	if (vars.mlx == NULL)
 		return (MLX_ERROR);
@@ -27,7 +31,7 @@ int	main(void)
 		return (MLX_ERROR);
 	}
 	read_map(&vars);
-	mlx_hook(vars.mlx_win, 2, 0, &handle_keypress, &vars);
+	mlx_hook(vars.mlx_win, KeyPress, KeyPressMask, &handle_keypress, &vars);
 	mlx_hook(vars.mlx_win, 17, 0, &x_toclose, &vars);
 	mlx_loop(vars.mlx);
 	free(vars.mlx);

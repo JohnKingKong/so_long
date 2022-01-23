@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvigneau <jvigneau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jvigneau <jvigneau@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 15:45:22 by jvigneau          #+#    #+#             */
-/*   Updated: 2022/01/22 16:11:52 by jvigneau         ###   ########.fr       */
+/*   Updated: 2022/01/23 13:36:55 by jvigneau         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "yolo.h"
 
-int	handle_keypress(int keysum, t_vars *vars)
+/*int	handle_keypress(int keysum, t_vars *vars)
 {
 	if (keysum == kVK_Escape)
 	{
@@ -29,7 +29,7 @@ int	handle_keypress(int keysum, t_vars *vars)
 	if (keysum == kVK_DownArrow)
 		player_down(vars);
 	return (TRUE);
-}
+}*/
 
 int	x_toclose(t_vars *vars)
 {
@@ -54,10 +54,26 @@ int	render(t_vars *vars, char **str, int y, int cnt)
 		}
 		else if (str[cnt][x] == '1')
 			tile_wall(vars, x * 32, y * 32);
-		else if (str[cnt][x] == 'C')
+		else if (str[cnt][x] == 'C' && vars->img.is_chest != 3)
+		{
 			collectible(vars, x * 32, y * 32);
-		else if (str[cnt][x] == 'Y')
+			vars->img.is_chest++;
+			vars->img.nb_keys = vars->img.nb_keys + 1;
+		}
+		else if (str[cnt][x] == 'C' && vars->img.is_chest == 3)
+		{
+			vars->img.is_chest++;
+			vars->img.pos_chest_x = x;
+			vars->img.pos_chest_y = y; 
+			str[cnt][x] = '0';
 			render_chest(vars, x * 32, y * 32);
+		}
+		else if (str[cnt][x] == 'E')
+		{
+			render_exit(vars, x * 32, y * 32);
+			vars->img.exit_x = x * 32;
+			vars->img.exit_y = y * 32;
+		}
 		x++;
 	}
 	return (TRUE);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   yolo.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvigneau <jvigneau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jvigneau <jvigneau@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 15:45:54 by jvigneau          #+#    #+#             */
-/*   Updated: 2022/01/22 16:25:25 by jvigneau         ###   ########.fr       */
+/*   Updated: 2022/01/23 13:54:48 by jvigneau         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 #ifndef YOLO_H
@@ -18,6 +18,8 @@
 # include <mlx.h>
 # include "../libft/libft.h"
 # include "../libft/get_next_line.h"
+# include <X11/keysym.h>
+# include <X11/X.h>
 
 enum e_window 
 {
@@ -52,6 +54,13 @@ typedef struct s_data
 	int		player_y;
 	char	*str[10000];
 	int		has_key;
+	int		nb_keys;
+	int		is_chest;
+	int		pos_chest_x;
+	int		pos_chest_y;
+	int		has_chest;
+	int		exit_x;
+	int		exit_y;
 }				t_data;
 
 typedef struct s_vars 
@@ -62,6 +71,7 @@ typedef struct s_vars
 } 				t_vars;
 
 int	tile_wall(t_vars *vars, int x, int y);
+int	render_exit(t_vars *vars, int x, int y);
 int	collectible(t_vars *vars, int x, int y);
 int	render_player_right(t_vars *vars, int x, int y);
 int	render_player_left(t_vars *vars, int x, int y);
@@ -87,4 +97,8 @@ int	collision_chest_right(t_vars *vars);
 int	collision_chest_left(t_vars *vars);
 int	collision_chest_up(t_vars *vars);
 int	collision_chest_down(t_vars *vars);
+int	collision_exit_right(t_vars *vars);
+int	collision_exit_left(t_vars *vars);
+int	collision_exit_down(t_vars *vars);
+int	collision_exit_up(t_vars *vars);
 #endif
