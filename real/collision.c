@@ -55,23 +55,23 @@ int	collision_chest_right(t_vars *vars)
 int	collision_chest_left(t_vars *vars)
 {
 	if (vars->img.str[vars->img.player_y / 32]
-		[(vars->img.player_x / 32) + 1] == 'Y')
+		[(vars->img.player_x / 32) - 1] == 'Y')
 		return (TRUE);
 	return (FALSE);
 }
 
 int	collision_chest_up(t_vars *vars)
 {
-	if (vars->img.str[vars->img.player_y / 32]
-		[(vars->img.player_x / 32) + 1] == 'Y')
+	if ((vars->img.str[vars->img.player_y / 32) - 1]
+		[(vars->img.player_x / 32)] == 'Y')
 		return (TRUE);
 	return (FALSE);
 }
 
 int	collision_chest_down(t_vars *vars)
 {
-	if (vars->img.str[vars->img.player_y / 32]
-		[(vars->img.player_x / 32) + 1] == 'Y')
+	if ((vars->img.str[vars->img.player_y / 32) + 1]
+		[(vars->img.player_x / 32)] == 'Y')
 		return (TRUE);
 	return (FALSE);
 }
