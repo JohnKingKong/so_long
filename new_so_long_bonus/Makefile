@@ -6,7 +6,7 @@
 #    By: jvigneau <jvigneau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/24 11:00:19 by jvigneau          #+#    #+#              #
-#    Updated: 2022/02/15 18:38:23 by jvigneau         ###   ########.fr        #
+#    Updated: 2022/02/15 20:23:45 by jvigneau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 define JR
@@ -75,7 +75,7 @@ CC		=	@gcc
 
 RM		=	rm -f
 
-CFLAGS	=	-g -Wall -Wextra -Werror -lmlx -framework OpenGL -framework AppKit -o so_long
+CFLAGS	=	-Wall -Wextra -Werror -lmlx -framework OpenGL -framework AppKit -o so_long
 
 LIBS	=	./libs/libft/libft.a
 
