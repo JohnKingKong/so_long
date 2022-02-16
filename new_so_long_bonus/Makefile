@@ -6,7 +6,7 @@
 #    By: jvigneau <jvigneau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/24 11:00:19 by jvigneau          #+#    #+#              #
-#    Updated: 2022/02/15 14:58:03 by jvigneau         ###   ########.fr        #
+#    Updated: 2022/02/15 18:38:23 by jvigneau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 define JR
@@ -61,9 +61,11 @@ define  NL
 
 endef
 
-SRCS	= 	main.c ./srcs/windows.c ./srcs/map.c ./srcs/render.c \
-			./srcs/movements.c ./srcs/utils.c ./srcs/cinematics.c \
-            ./srcs/collisions.c ./srcs/init.c ./srcs/player_render.c \
+SRCS	= 	main_bonus.c ./srcs/windows_bonus.c ./srcs/map_bonus.c \
+            ./srcs/render_bonus.c ./srcs/movements_bonus.c \
+            ./srcs/utils_bonus.c ./srcs/utils2_bonus.c \
+            ./srcs/collisions_bonus.c ./srcs/init_bonus.c \
+            ./srcs/player_render_bonus.c \
 		
 OBJS	=	${SRCS:.c=.o}
 
@@ -73,7 +75,7 @@ CC		=	@gcc
 
 RM		=	rm -f
 
-CFLAGS	=	-Wall -Wextra -Werror -lmlx -framework OpenGL -framework AppKit -o so_long
+CFLAGS	=	-g -Wall -Wextra -Werror -lmlx -framework OpenGL -framework AppKit -o so_long
 
 LIBS	=	./libs/libft/libft.a
 
@@ -102,7 +104,7 @@ fclean	:	clean
 			$(FTMAKE) $@
 			
 re		:	fclean all
-			@echo "path :";\
+			@echo "\033[0;37mPlease type in the path to the map \033[0;31m(*leave blank for deafult map*)\033[0;37m :"; \
 			read CHEMIN; \
 			$(RUN) $$CHEMIN
             
