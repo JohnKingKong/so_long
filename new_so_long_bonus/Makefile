@@ -6,7 +6,7 @@
 #    By: jvigneau <jvigneau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/24 11:00:19 by jvigneau          #+#    #+#              #
-#    Updated: 2022/02/15 20:23:45 by jvigneau         ###   ########.fr        #
+#    Updated: 2022/02/19 14:19:44 by jvigneau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 define JR
@@ -65,7 +65,7 @@ SRCS	= 	main_bonus.c ./srcs/windows_bonus.c ./srcs/map_bonus.c \
             ./srcs/render_bonus.c ./srcs/movements_bonus.c \
             ./srcs/utils_bonus.c ./srcs/utils2_bonus.c \
             ./srcs/collisions_bonus.c ./srcs/init_bonus.c \
-            ./srcs/player_render_bonus.c \
+		./srcs/player_render_bonus.c ./srcs/init_bonus2.c \
 		
 OBJS	=	${SRCS:.c=.o}
 
@@ -75,7 +75,7 @@ CC		=	@gcc
 
 RM		=	rm -f
 
-CFLAGS	=	-Wall -Wextra -Werror -lmlx -framework OpenGL -framework AppKit -o so_long
+CFLAGS	=	-g -Wall -Wextra -Werror -lmlx -framework OpenGL -framework AppKit -o so_long
 
 LIBS	=	./libs/libft/libft.a
 
@@ -104,7 +104,7 @@ fclean	:	clean
 			$(FTMAKE) $@
 			
 re		:	fclean all
-			@echo "\033[0;37mPlease type in the path to the map \033[0;31m(*leave blank for deafult map*)\033[0;37m :"; \
+			@echo "\033[0;37mPlease type in the path to the map \033[0;33m(*leave blank for deafult map*)\033[0;37m :"; \
 			read CHEMIN; \
 			$(RUN) $$CHEMIN
             

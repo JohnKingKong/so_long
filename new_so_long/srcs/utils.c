@@ -12,24 +12,6 @@
 
 #include "../libs/so_long.h"
 
-/*int	handle_keypress_windows(int keysum, t_vars *vars)
-{
-	if (keysum == XK_Escape)
-	{
-		mlx_destroy_window(vars->mlx, vars->mlx_win);
-		vars->mlx_win = NULL;
-		exit (0);
-	}
-	else if (keysum == XK_d)
-		player_render(vars, vars->player.pos_x, vars->player.pos_y, RIGHT);
-	else if (keysum == XK_a)
-		player_render(vars, vars->player.pos_x, vars->player.pos_y, LEFT);
-	else if (keysum == XK_w)
-		player_render(vars, vars->player.pos_x, vars->player.pos_y, UP);
-	else if (keysum == XK_s)
-		player_render(vars, vars->player.pos_x, vars->player.pos_y, DOWN);
-	return (TRUE);
-}*/
 
 int	handle_keypress_windows(int keysum, t_vars *vars)
 {	

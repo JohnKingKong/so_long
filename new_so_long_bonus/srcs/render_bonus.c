@@ -6,7 +6,7 @@
 /*   By: jvigneau <jvigneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 15:45:22 by jvigneau          #+#    #+#             */
-/*   Updated: 2022/02/15 19:22:11 by jvigneau         ###   ########.fr       */
+/*   Updated: 2022/02/19 12:36:45 by jvigneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,104 +18,46 @@ int	render_floor(t_vars *vars, int x, int y)
 	return (TRUE);
 }
 
-int	render_walleye(t_vars *vars, int x, int y)
+void	render_walleye(t_vars *vars, int x, int y)
 {
-	if (vars->wall.num == 1)
-		mlx_put_image_to_window(vars->mlx, vars->mlx_win,
-			vars->wall.alt_img[0], x, y);
-	else if (vars->wall.num == 2)
-		mlx_put_image_to_window(vars->mlx, vars->mlx_win,
-			vars->wall.alt_img[1], x, y);
-	else if (vars->wall.num == 3)
-		mlx_put_image_to_window(vars->mlx, vars->mlx_win,
-			vars->wall.alt_img[2], x, y);
-	else if (vars->wall.num == 4)
-		mlx_put_image_to_window(vars->mlx, vars->mlx_win,
-			vars->wall.alt_img[3], x, y);
-	else if (vars->wall.num == 5)
-		mlx_put_image_to_window(vars->mlx, vars->mlx_win,
-			vars->wall.alt_img[4], x, y);
-	else if (vars->wall.num == 6)
-		mlx_put_image_to_window(vars->mlx, vars->mlx_win,
-			vars->wall.alt_img[5], x, y);
-	else if (vars->wall.num == 7)
-		mlx_put_image_to_window(vars->mlx, vars->mlx_win,
-			vars->wall.alt_img[6], x, y);
-	else if (vars->wall.num == 8)
-		mlx_put_image_to_window(vars->mlx, vars->mlx_win,
-			vars->wall.alt_img[7], x, y);
-	else if (vars->wall.num == 9)
-		mlx_put_image_to_window(vars->mlx, vars->mlx_win,
-			vars->wall.alt_img[8], x, y);
+	mlx_put_image_to_window(vars->mlx, vars->mlx_win,
+		vars->wall.alt_img[vars->wall.num - 1], x, y);
 	vars->map.str[y / 32][x / 32] = 'Y';
-	return (TRUE);
 }
 
-int	render_wall(t_vars *vars, int x, int y)
+void	render_wall(t_vars *vars, int x, int y)
 {
-	vars->init.rdm = rand() % 50;
-	if (vars->init.rdm > 7)
+	if (vars->map.wall_nb[y / 32][x / 32] == 9)
 		mlx_put_image_to_window(vars->mlx, vars->mlx_win,
 			vars->wall.img[0], x, y);
-	else if (vars->init.rdm == 0)
-		mlx_put_image_to_window(vars->mlx, vars->mlx_win,
-			vars->wall.img[1], x, y);
-	else if (vars->init.rdm == 1)
-		mlx_put_image_to_window(vars->mlx, vars->mlx_win,
-			vars->wall.img[2], x, y);
-	else if (vars->init.rdm == 2)
-		mlx_put_image_to_window(vars->mlx, vars->mlx_win,
-			vars->wall.img[3], x, y);
-	else if (vars->init.rdm == 3)
-		mlx_put_image_to_window(vars->mlx, vars->mlx_win,
-			vars->wall.img[4], x, y);
-	else if (vars->init.rdm == 4)
-		mlx_put_image_to_window(vars->mlx, vars->mlx_win,
-			vars->wall.img[5], x, y);
-	else if (vars->init.rdm == 5)
-		mlx_put_image_to_window(vars->mlx, vars->mlx_win,
-			vars->wall.img[6], x, y);
-	else if (vars->init.rdm == 6)
-		mlx_put_image_to_window(vars->mlx, vars->mlx_win,
-			vars->wall.img[7], x, y);
-	else if (vars->init.rdm == 7)
+	else if (vars->map.wall_nb[y / 32][x / 32] == 8)
 		render_walleye(vars, x, y);
-	return (TRUE);
+	else
+		mlx_put_image_to_window(vars->mlx, vars->mlx_win, vars->wall.img
+		[vars->map.wall_nb[y / 32][x / 32]], x, y);
 }
 
-int	render_collectibles(t_vars *vars, int x, int y)
+void	put_img_player(t_vars *vars, int x, int y)
 {
-	render_floor(vars, x, y);
-	if (vars->key.num[0] == '1')
+	if (vars->player.looking_direction == RIGHT)
 		mlx_put_image_to_window(vars->mlx, vars->mlx_win,
-			vars->key.img_1, x, y);
-	else if (vars->key.num[0] == '2')
+			vars->player.img_right[vars->player.num - 1], x, y);
+	else if (vars->player.looking_direction == LEFT)
 		mlx_put_image_to_window(vars->mlx, vars->mlx_win,
-			vars->key.img_2, x, y);
-	else if (vars->key.num[0] == '3')
+			vars->player.img_left[vars->player.num - 1], x, y);
+	else if (vars->player.looking_direction == UP)
 		mlx_put_image_to_window(vars->mlx, vars->mlx_win,
-			vars->key.img_3, x, y);
-	else if (vars->key.num[0] == '4')
+			vars->player.img_up[vars->player.num - 1], x, y);
+	else if (vars->player.looking_direction == DOWN)
 		mlx_put_image_to_window(vars->mlx, vars->mlx_win,
-			vars->key.img_4, x, y);
-	else if (vars->key.num[0] == '5')
-		mlx_put_image_to_window(vars->mlx, vars->mlx_win,
-			vars->key.img_5, x, y);
-	else if (vars->key.num[0] == '6')
-		mlx_put_image_to_window(vars->mlx, vars->mlx_win,
-			vars->key.img_6, x, y);
-	vars->chest.for_chest++;
-	vars->key.keys_in_map = vars->key.keys_in_map + 1;
-	return (TRUE);
+			vars->player.img_down[vars->player.num - 1], x, y);
 }
 
-int	render_chest(t_vars *vars, int x, int y)
+int	player_load_asset(t_vars *vars, int x, int y)
 {
+	vars->player.pos_x = x;
+	vars->player.pos_y = y;
 	render_floor(vars, x, y);
-	mlx_put_image_to_window(vars->mlx, vars->mlx_win, vars->chest.img, x, y);
-	vars->chest.for_chest++;
-	vars->chest.pos_chest_x = x;
-	vars->chest.pos_chest_y = y;
-	vars->map.str[y / 32][x / 32] = '0';
+	put_img_player(vars, x, y);
 	return (TRUE);
 }

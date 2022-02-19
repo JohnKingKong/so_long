@@ -6,7 +6,7 @@
 /*   By: jvigneau <jvigneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 15:45:22 by jvigneau          #+#    #+#             */
-/*   Updated: 2022/02/14 15:53:55 by jvigneau         ###   ########.fr       */
+/*   Updated: 2022/02/19 11:58:59 by jvigneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ typedef struct s_key
 	void	*img_4;
 	void	*img_5;
 	void	*img_6;
-	int		keys_in_map;
+	int		collect_in_map;
 	int		keys_on_player;
 	int		animation_coin;
 	int		num[0];
@@ -98,6 +98,7 @@ typedef struct s_player
 	int		sword_out;
 	int		animation;
 	int		num;
+	int		nb_moves;
 }				t_player;
 
 typedef struct s_ennemies
@@ -122,7 +123,16 @@ typedef struct s_map
 typedef struct s_init
 {
 	int		o;
+	int		rdm;
+	int		ok_p;
+	int		ok_e;
+	int		ok_0;
 }				t_init;
+
+typedef struct s_errolog
+{
+	char	*errorlog;
+}				t_errorlog;
 
 typedef struct s_vars
 {
@@ -137,6 +147,7 @@ typedef struct s_vars
 	t_ennemies	ennemies;
 	t_error		error;
 	t_init		init;
+	t_errorlog	errorlog;
 }				t_vars;
 
 // misc render functions
@@ -187,5 +198,9 @@ int		collision_keylock(t_vars *vars, int direction);
 
 //fucntions for timer
 int		timer(t_vars *vars);
+
+void	check_elements(t_vars *vars);
+int	confirm_elements(t_vars *vars);
+int	check_borders(t_vars *vars);
 
 #endif

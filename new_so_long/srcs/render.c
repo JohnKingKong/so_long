@@ -6,7 +6,7 @@
 /*   By: jvigneau <jvigneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 15:45:22 by jvigneau          #+#    #+#             */
-/*   Updated: 2022/02/14 16:06:48 by jvigneau         ###   ########.fr       */
+/*   Updated: 2022/02/16 14:07:30 by jvigneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ int	render_collectibles(t_vars *vars, int x, int y)
 		mlx_put_image_to_window(vars->mlx, vars->mlx_win,
 			vars->key.img_6, x, y);
 	vars->chest.for_chest++;
-	vars->key.keys_in_map = vars->key.keys_in_map + 1;
 	return (TRUE);
 }
 

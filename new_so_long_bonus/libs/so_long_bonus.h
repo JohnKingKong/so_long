@@ -6,7 +6,7 @@
 /*   By: jvigneau <jvigneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 15:45:22 by jvigneau          #+#    #+#             */
-/*   Updated: 2022/02/15 19:14:29 by jvigneau         ###   ########.fr       */
+/*   Updated: 2022/02/19 13:00:22 by jvigneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,12 @@ enum e_keys_on_Mac
 	Escape = 0x35
 };
 
-typedef struct s_error
+typedef struct s_text
 {
+	void	*box_img;
 	char	*message;
-}				t_error;
+	int		on_or_off;
+}				t_text;
 
 typedef struct s_floor
 {
@@ -79,8 +81,8 @@ typedef struct s_key
 	void	*img_4;
 	void	*img_5;
 	void	*img_6;
-	int		keys_in_map;
-	int		keys_on_player;
+	int		collect_in_map;
+	int		collect_on_player;
 	int		animation_coin;
 	int		num[0];
 }				t_key;
@@ -98,6 +100,7 @@ typedef struct s_player
 	int		sword_out;
 	int		animation;
 	int		num;
+	int		nb_moves;
 }				t_player;
 
 typedef struct s_ennemies
@@ -115,16 +118,24 @@ typedef struct s_map
 	int		width;
 	int		height;
 	int		is_chest;
-	int		pos_exit_x;
 	int		pos_exit_y;
 	char	*path;
+	int		wall_nb[1000][1000];
 }				t_map;
 
 typedef struct s_init
 {
 	int		o;
 	int		rdm;
+	int		ok_p;
+	int		ok_e;
 }				t_init;
+
+typedef struct s_errolog
+{
+	char	*errorlog;
+	void	*nokey;
+}				t_errorlog;
 
 typedef struct s_vars
 {
@@ -137,31 +148,31 @@ typedef struct s_vars
 	t_wall		wall;
 	t_floor		floor;
 	t_ennemies	ennemies;
-	t_error		error;
+	t_text		text;
 	t_init		init;
+	t_errorlog	errorlog;
 }				t_vars;
 
 // misc render functions
 int		render_all(t_vars *vars, char **str, int cnt);
 int		player_load_asset(t_vars *vars, int x, int y);
 int		render_floor(t_vars *vars, int x, int y);
-int		render_wall(t_vars *vars, int x, int y);
+void	render_wall(t_vars *vars, int x, int y);
 int		render_collectibles(t_vars *vars, int x, int y);
 int		render_chest(t_vars *vars, int x, int y);
-int		render_walleye(t_vars *vars, int x, int y);
-void	put_img_player_right(t_vars *vars, int x, int y);
-void	put_img_player_left(t_vars *vars, int x, int y);
-void	put_img_player_up(t_vars *vars, int x, int y);
-void	put_img_player_down(t_vars *vars, int x, int y);
+void	render_walleye(t_vars *vars, int x, int y);
+void	put_img_player(t_vars *vars, int x, int y);
 int		player_render(t_vars *vars, int x, int y);
 // init functions
-int		var_init(t_vars *vars);
+int		var_init(t_vars *vars, int ac, char **av);
 int		init_all(t_vars *vars);
 void	init_all2(t_vars *vars, char *path, int width, int height);
 void	init_all3(t_vars *vars, char *path, int width, int height);
 void	init_all4(t_vars *vars, char *path, int width, int height);
 void	init_all5(t_vars *vars, char *path, int width, int height);
 void	init_all6(t_vars *vars, char *path, int width, int height);
+void	init_all7(t_vars *vars, char *path, int width, int height);
+int		temp_init(t_vars *vars, int ac, char **av);
 // player movement functions
 int		move_up(t_vars *vars, int x, int y);
 int		move_down(t_vars *vars, int x, int y);
@@ -173,17 +184,25 @@ int		moves_key(int keysum, t_vars *vars);
 int		x_to_close(t_vars *vars);
 int		animation_coin(t_vars *vars);
 int		timer(t_vars *vars);
+void	text_box(t_vars *vars, int x, int y);
 // map related functions
 int		malloc_map(t_vars *var);
 int		read_map(t_vars *vars);
 int		map_validity(t_vars *vars);
 int		check_map_render(t_vars *vars, char **str, int x, int y);
+int		confirm_elements(t_vars *vars);
+void	check_elements(t_vars *vars);
+int		check_borders(t_vars *vars);
+void	rdm_walls(t_vars *vars, int x, int y);
 // collisions functions
 int		collision_wall(t_vars *vars, int direction);
+int		collision_wall_2(t_vars *vars, int direction);
 int		collision_keylock(t_vars *vars, int direction);
-//	randomization
-int	 mini_random();
 // destroyssssssss
-int	destroy_erthing(t_vars *vars);
+void	destroy_erthing(t_vars *vars);
+void	keep_destroying(t_vars *vars);
+// moves counter
+int		print_moves(t_vars *vars);
+int		print_box(t_vars *vars);
 
 #endif
