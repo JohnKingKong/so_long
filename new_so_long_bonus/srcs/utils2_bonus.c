@@ -6,7 +6,7 @@
 /*   By: jvigneau <jvigneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 15:45:22 by jvigneau          #+#    #+#             */
-/*   Updated: 2022/02/19 13:01:39 by jvigneau         ###   ########.fr       */
+/*   Updated: 2022/02/22 10:59:11 by jvigneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ int	timer(t_vars *vars)
 	if (++vars->key.animation_coin > 10 || vars->key.animation_coin < 0)
 	{
 		vars->key.num[0] = vars->key.num[0] + 1;
-		if (vars->key.num[0] > '6')
-			vars->key.num[0] = '1';
+		if (vars->key.num[0] > 6)
+			vars->key.num[0] = 1;
 		vars->key.animation_coin = 0;
 	}
 	if (++vars->player.animation > 19 || vars->player.animation < 0)

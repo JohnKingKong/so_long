@@ -6,7 +6,7 @@
 /*   By: jvigneau <jvigneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 15:45:22 by jvigneau          #+#    #+#             */
-/*   Updated: 2022/02/19 14:09:32 by jvigneau         ###   ########.fr       */
+/*   Updated: 2022/02/22 11:21:05 by jvigneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,38 +40,24 @@ int	read_map(t_vars *vars)
 	close(vars->map.fd);
 	if (map_validity(vars) == TRUE)
 	{
-		printf("ok p %d\n", vars->init.ok_p);
-		vars->mlx = mlx_init();
-		if (vars->mlx == NULL)
-			return (FALSE);
-		init_all(vars);
-		vars->mlx_win = mlx_new_window(vars->mlx, vars->map.width,
-				vars->map.height, "So long!");
-		if (vars->mlx_win == NULL)
-			return (FALSE);
-		render_all(vars, vars->map.str, vars->map.cnt);
+		map_true(vars);
 		return (TRUE);
 	}
 	return (FALSE);
 }
 
-int	render_all(t_vars *vars, char **str, int cnt)
+int	map_true(t_vars *vars)
 {
-	int	x;
-	int	y;
-
-	x = 0;
-	y = 0;
-	while (y < cnt)
-	{
-		while (str[y][x])
-		{
-			check_map_render(vars, str, x, y);
-			x++;
-		}
-		x = 0;
-		y++;
-	}
+	printf("ok p %d\n", vars->init.ok_p);
+	vars->mlx = mlx_init();
+	if (vars->mlx == NULL)
+		return (FALSE);
+	init_all(vars);
+	vars->mlx_win = mlx_new_window(vars->mlx, vars->map.width,
+			vars->map.height, "So long!");
+	if (vars->mlx_win == NULL)
+		return (FALSE);
+	render_all(vars, vars->map.str, vars->map.cnt);
 	return (TRUE);
 }
 

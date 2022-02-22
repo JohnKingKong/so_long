@@ -6,7 +6,7 @@
 /*   By: jvigneau <jvigneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 14:13:42 by jvigneau          #+#    #+#             */
-/*   Updated: 2022/02/19 12:38:21 by jvigneau         ###   ########.fr       */
+/*   Updated: 2022/02/22 10:59:32 by jvigneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,22 +46,10 @@ void	rdm_walls(t_vars *vars, int x, int y)
 	vars->init.rdm = rand() % 50;
 	if (vars->init.rdm > 7)
 		vars->map.wall_nb[y][x] = 9;
-	else if (vars->init.rdm == 0)
-		vars->map.wall_nb[y][x] = 1;
-	else if (vars->init.rdm == 1)
-		vars->map.wall_nb[y][x] = 2;
-	else if (vars->init.rdm == 2)
-		vars->map.wall_nb[y][x] = 3;
-	else if (vars->init.rdm == 3)
-		vars->map.wall_nb[y][x] = 4;
-	else if (vars->init.rdm == 4)
-		vars->map.wall_nb[y][x] = 5;
-	else if (vars->init.rdm == 5)
-		vars->map.wall_nb[y][x] = 6;
-	else if (vars->init.rdm == 6)
-		vars->map.wall_nb[y][x] = 7;
 	else if (vars->init.rdm == 7)
 		vars->map.wall_nb[y][x] = 8;
+	else
+		vars->map.wall_nb[y][x] = vars->init.rdm + 1;
 	vars->map.str[y][x] = vars->map.wall_nb[y][x] + 48;
 	render_wall(vars, x * 32, y * 32);
 }
@@ -69,24 +57,8 @@ void	rdm_walls(t_vars *vars, int x, int y)
 int	render_collectibles(t_vars *vars, int x, int y)
 {
 	render_floor(vars, x, y);
-	if (vars->key.num[0] == '1')
-		mlx_put_image_to_window(vars->mlx, vars->mlx_win,
-			vars->key.img_1, x, y);
-	else if (vars->key.num[0] == '2')
-		mlx_put_image_to_window(vars->mlx, vars->mlx_win,
-			vars->key.img_2, x, y);
-	else if (vars->key.num[0] == '3')
-		mlx_put_image_to_window(vars->mlx, vars->mlx_win,
-			vars->key.img_3, x, y);
-	else if (vars->key.num[0] == '4')
-		mlx_put_image_to_window(vars->mlx, vars->mlx_win,
-			vars->key.img_4, x, y);
-	else if (vars->key.num[0] == '5')
-		mlx_put_image_to_window(vars->mlx, vars->mlx_win,
-			vars->key.img_5, x, y);
-	else if (vars->key.num[0] == '6')
-		mlx_put_image_to_window(vars->mlx, vars->mlx_win,
-			vars->key.img_6, x, y);
+	mlx_put_image_to_window(vars->mlx, vars->mlx_win,
+		vars->key.img[vars->key.num[0]], x, y);
 	vars->chest.for_chest++;
 	return (TRUE);
 }

@@ -6,7 +6,7 @@
 /*   By: jvigneau <jvigneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 15:45:22 by jvigneau          #+#    #+#             */
-/*   Updated: 2022/02/19 13:16:14 by jvigneau         ###   ########.fr       */
+/*   Updated: 2022/02/22 11:09:20 by jvigneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,15 @@ int	moves_key(int keysum, t_vars *vars)
 
 int	x_to_close(t_vars *vars)
 {
-	
+	int	cnt;
+
+	cnt = 0;
+	while (vars->map.str[cnt])
+	{
+		free(vars->map.str[cnt]);
+		cnt++;
+	}
+	free(vars->map.str);
 	vars->mlx_win = NULL;
 	destroy_erthing(vars);
 	exit(0);
@@ -65,12 +73,12 @@ void	destroy_erthing(t_vars *vars)
 	mlx_destroy_image(vars->mlx, vars->wall.img[6]);
 	mlx_destroy_image(vars->mlx, vars->wall.img[7]);
 	mlx_destroy_image(vars->mlx, vars->floor.img);
-	mlx_destroy_image(vars->mlx, vars->key.img_1);
-	mlx_destroy_image(vars->mlx, vars->key.img_2);
-	mlx_destroy_image(vars->mlx, vars->key.img_3);
-	mlx_destroy_image(vars->mlx, vars->key.img_4);
-	mlx_destroy_image(vars->mlx, vars->key.img_5);
-	mlx_destroy_image(vars->mlx, vars->key.img_6);
+	mlx_destroy_image(vars->mlx, vars->key.img[1]);
+	mlx_destroy_image(vars->mlx, vars->key.img[2]);
+	mlx_destroy_image(vars->mlx, vars->key.img[3]);
+	mlx_destroy_image(vars->mlx, vars->key.img[4]);
+	mlx_destroy_image(vars->mlx, vars->key.img[5]);
+	mlx_destroy_image(vars->mlx, vars->key.img[6]);
 	mlx_destroy_image(vars->mlx, vars->player.img_up[0]);
 	mlx_destroy_image(vars->mlx, vars->player.img_up[1]);
 	mlx_destroy_image(vars->mlx, vars->player.img_up[2]);
@@ -101,13 +109,4 @@ void	keep_destroying(t_vars *vars)
 	mlx_destroy_image(vars->mlx, vars->wall.alt_img[6]);
 	mlx_destroy_image(vars->mlx, vars->wall.alt_img[7]);
 	mlx_destroy_image(vars->mlx, vars->wall.alt_img[8]);
-	int	cnt;
-
-	cnt = 0;
-	while (vars->map.str[cnt])
-	{
-		free(vars->map.str[cnt]);
-		cnt++;
-	}
-	free(vars->map.str);
 }

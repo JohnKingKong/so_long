@@ -6,7 +6,7 @@
 /*   By: jvigneau <jvigneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 15:45:22 by jvigneau          #+#    #+#             */
-/*   Updated: 2022/02/19 12:36:45 by jvigneau         ###   ########.fr       */
+/*   Updated: 2022/02/22 11:20:39 by jvigneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,27 +37,31 @@ void	render_wall(t_vars *vars, int x, int y)
 		[vars->map.wall_nb[y / 32][x / 32]], x, y);
 }
 
-void	put_img_player(t_vars *vars, int x, int y)
-{
-	if (vars->player.looking_direction == RIGHT)
-		mlx_put_image_to_window(vars->mlx, vars->mlx_win,
-			vars->player.img_right[vars->player.num - 1], x, y);
-	else if (vars->player.looking_direction == LEFT)
-		mlx_put_image_to_window(vars->mlx, vars->mlx_win,
-			vars->player.img_left[vars->player.num - 1], x, y);
-	else if (vars->player.looking_direction == UP)
-		mlx_put_image_to_window(vars->mlx, vars->mlx_win,
-			vars->player.img_up[vars->player.num - 1], x, y);
-	else if (vars->player.looking_direction == DOWN)
-		mlx_put_image_to_window(vars->mlx, vars->mlx_win,
-			vars->player.img_down[vars->player.num - 1], x, y);
-}
-
 int	player_load_asset(t_vars *vars, int x, int y)
 {
 	vars->player.pos_x = x;
 	vars->player.pos_y = y;
 	render_floor(vars, x, y);
 	put_img_player(vars, x, y);
+	return (TRUE);
+}
+
+int	render_all(t_vars *vars, char **str, int cnt)
+{
+	int	x;
+	int	y;
+
+	x = 0;
+	y = 0;
+	while (y < cnt)
+	{
+		while (str[y][x])
+		{
+			check_map_render(vars, str, x, y);
+			x++;
+		}
+		x = 0;
+		y++;
+	}
 	return (TRUE);
 }

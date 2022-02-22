@@ -6,7 +6,7 @@
 /*   By: jvigneau <jvigneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 15:45:22 by jvigneau          #+#    #+#             */
-/*   Updated: 2022/02/19 13:00:22 by jvigneau         ###   ########.fr       */
+/*   Updated: 2022/02/22 11:19:12 by jvigneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,12 +75,7 @@ typedef struct s_wall
 
 typedef struct s_key
 {
-	void	*img_1;
-	void	*img_2;
-	void	*img_3;
-	void	*img_4;
-	void	*img_5;
-	void	*img_6;
+	void	*img[7];
 	int		collect_in_map;
 	int		collect_on_player;
 	int		animation_coin;
@@ -181,7 +176,6 @@ int		move_left(t_vars *vars, int x, int y);
 // misc hooks
 int		handle_keypress_windows(int keysum, t_vars *vars);
 int		moves_key(int keysum, t_vars *vars);
-int		x_to_close(t_vars *vars);
 int		animation_coin(t_vars *vars);
 int		timer(t_vars *vars);
 void	text_box(t_vars *vars, int x, int y);
@@ -194,6 +188,7 @@ int		confirm_elements(t_vars *vars);
 void	check_elements(t_vars *vars);
 int		check_borders(t_vars *vars);
 void	rdm_walls(t_vars *vars, int x, int y);
+int		map_true(t_vars *vars);
 // collisions functions
 int		collision_wall(t_vars *vars, int direction);
 int		collision_wall_2(t_vars *vars, int direction);
@@ -201,6 +196,8 @@ int		collision_keylock(t_vars *vars, int direction);
 // destroyssssssss
 void	destroy_erthing(t_vars *vars);
 void	keep_destroying(t_vars *vars);
+void	error_map_exit(t_vars *vars);
+int		x_to_close(t_vars *vars);
 // moves counter
 int		print_moves(t_vars *vars);
 int		print_box(t_vars *vars);

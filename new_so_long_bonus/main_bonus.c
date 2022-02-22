@@ -6,7 +6,7 @@
 /*   By: jvigneau <jvigneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 15:45:22 by jvigneau          #+#    #+#             */
-/*   Updated: 2022/02/19 14:19:08 by jvigneau         ###   ########.fr       */
+/*   Updated: 2022/02/22 11:17:01 by jvigneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,24 +72,30 @@ void	check_elements(t_vars *vars)
 	}
 }
 
+void	error_map_exit(t_vars *vars)
+{
+	int	cnt;
+
+	cnt = 0;
+	while (vars->map.str[cnt])
+	{
+		free(vars->map.str[cnt]);
+		cnt++;
+	}
+	free(vars->map.str);
+	printf("\033[0;31m\nERROR!!!!!\n%s\n", vars->errorlog.errorlog);
+}
+
 int	main(int ac, char **av)
 {
 	t_vars	vars;
-	int		cnt;
 	int		err_map;
 
 	var_init(&vars, ac, av);
 	err_map = read_map(&vars);
 	if (err_map == FALSE)
 	{
-		cnt = 0;
-		while (vars.map.str[cnt])
-		{
-			free(vars.map.str[cnt]);
-			cnt++;
-		}
-		free(vars.map.str);
-		printf("\033[0;31m\nERROR!!!!!\n%s\n", vars.errorlog.errorlog);
+		error_map_exit(&vars);
 		return (0);
 	}
 	mlx_string_put(vars.mlx, vars.mlx_win, 40, 32, 0xFFBE149A,
