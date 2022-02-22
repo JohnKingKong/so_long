@@ -6,7 +6,7 @@
 /*   By: jvigneau <jvigneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 12:44:01 by jvigneau          #+#    #+#             */
-/*   Updated: 2022/02/16 12:46:55 by jvigneau         ###   ########.fr       */
+/*   Updated: 2022/02/22 12:09:43 by jvigneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ int	init_all(t_vars *vars)
 
 	path = "./assets/collectibles/chest_close.xpm";
 	vars->chest.img = mlx_xpm_file_to_image(vars->mlx, path,
+			&width, &height);
+	vars->exit.img = mlx_xpm_file_to_image(vars->mlx, path,
 			&width, &height);
 	path = "./assets/background/wall.xpm";
 	vars->wall.img[0] = mlx_xpm_file_to_image(vars->mlx, path,

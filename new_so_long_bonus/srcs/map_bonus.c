@@ -6,7 +6,7 @@
 /*   By: jvigneau <jvigneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 15:45:22 by jvigneau          #+#    #+#             */
-/*   Updated: 2022/02/22 11:21:05 by jvigneau         ###   ########.fr       */
+/*   Updated: 2022/02/22 17:45:26 by jvigneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ int	read_map(t_vars *vars)
 
 int	map_true(t_vars *vars)
 {
-	printf("ok p %d\n", vars->init.ok_p);
 	vars->mlx = mlx_init();
 	if (vars->mlx == NULL)
 		return (FALSE);
@@ -67,15 +66,12 @@ int	check_map_render(t_vars *vars, char **str, int x, int y)
 		render_floor(vars, x * 32, y * 32);
 	else if (str[y][x] == 'Y')
 		render_walleye(vars, x * 32, y * 32);
-	else if (str[y][x] == 'C' && vars->chest.for_chest != 3)
-		render_collectibles(vars, x * 32, y * 32);
-	else if ((str[y][x] == 'C' && vars->chest.for_chest == 3))
-		render_chest(vars, x * 32, y * 32);
-	else if (str[y][x] == 'c')
-		render_chest(vars, x * 32, y * 32);
+	else if (str[y][x] == 'C' || str[y][x] == 'K')
+		render_key(vars, x * 32, y * 32);
+	else if (str[y][x] == 'E')
+		render_exit(vars, x * 32, y * 32);
 	else if (str[y][x] == 'P')
 	{
-		vars->player.looking_direction = RIGHT;
 		player_load_asset(vars, x * 32, y * 32);
 		vars->map.str[y][x] = '0';
 	}

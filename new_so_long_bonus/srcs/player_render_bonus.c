@@ -6,7 +6,7 @@
 /*   By: jvigneau <jvigneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 15:48:56 by jvigneau          #+#    #+#             */
-/*   Updated: 2022/02/22 11:22:04 by jvigneau         ###   ########.fr       */
+/*   Updated: 2022/02/22 17:46:23 by jvigneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,3 +44,38 @@ int	player_render(t_vars *vars, int x, int y)
 		move_right(vars, x, y);
 	return (TRUE);
 }
+
+int	render_exit(t_vars *vars, int x, int y)
+{
+	mlx_put_image_to_window(vars->mlx, vars->mlx_win, vars->exit.img, x, y);
+	vars->chest.pos_chest_x = x;
+	vars->chest.pos_chest_y = y;
+	return (TRUE);
+}
+
+int	render_key(t_vars *vars, int x, int y)
+{
+	if (vars->key.on == FALSE)
+	{
+		vars->key.on = TRUE;
+		render_floor(vars, x, y);
+		mlx_put_image_to_window(vars->mlx, vars->mlx_win,
+			vars->key.img_key, x, y);
+		vars->map.str[y / 32][x / 32] = 'K';
+	}
+	else if (vars->key.on == TRUE
+		&& vars->map.str[y / 32][x / 32] == 'K')
+	{
+		render_floor(vars, x, y);
+		mlx_put_image_to_window(vars->mlx, vars->mlx_win,
+			vars->key.img_key, x, y);
+	}
+	else
+		render_collectibles(vars, x, y);
+	return (TRUE);
+}
+
+// int	scores(t_vars *vars)
+// {
+
+// }

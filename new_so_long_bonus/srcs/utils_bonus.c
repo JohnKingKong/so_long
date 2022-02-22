@@ -6,7 +6,7 @@
 /*   By: jvigneau <jvigneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 15:45:22 by jvigneau          #+#    #+#             */
-/*   Updated: 2022/02/22 11:09:20 by jvigneau         ###   ########.fr       */
+/*   Updated: 2022/02/22 14:41:26 by jvigneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,50 +63,25 @@ int	x_to_close(t_vars *vars)
 
 void	destroy_erthing(t_vars *vars)
 {
-	mlx_destroy_image(vars->mlx, vars->chest.img);
-	mlx_destroy_image(vars->mlx, vars->wall.img[0]);
-	mlx_destroy_image(vars->mlx, vars->wall.img[1]);
-	mlx_destroy_image(vars->mlx, vars->wall.img[2]);
-	mlx_destroy_image(vars->mlx, vars->wall.img[3]);
-	mlx_destroy_image(vars->mlx, vars->wall.img[4]);
-	mlx_destroy_image(vars->mlx, vars->wall.img[5]);
-	mlx_destroy_image(vars->mlx, vars->wall.img[6]);
-	mlx_destroy_image(vars->mlx, vars->wall.img[7]);
-	mlx_destroy_image(vars->mlx, vars->floor.img);
-	mlx_destroy_image(vars->mlx, vars->key.img[1]);
-	mlx_destroy_image(vars->mlx, vars->key.img[2]);
-	mlx_destroy_image(vars->mlx, vars->key.img[3]);
-	mlx_destroy_image(vars->mlx, vars->key.img[4]);
-	mlx_destroy_image(vars->mlx, vars->key.img[5]);
-	mlx_destroy_image(vars->mlx, vars->key.img[6]);
-	mlx_destroy_image(vars->mlx, vars->player.img_up[0]);
-	mlx_destroy_image(vars->mlx, vars->player.img_up[1]);
-	mlx_destroy_image(vars->mlx, vars->player.img_up[2]);
-	mlx_destroy_image(vars->mlx, vars->player.img_up[3]);
-	mlx_destroy_image(vars->mlx, vars->player.img_down[0]);
-	mlx_destroy_image(vars->mlx, vars->player.img_down[1]);
-	mlx_destroy_image(vars->mlx, vars->player.img_down[2]);
-	mlx_destroy_image(vars->mlx, vars->player.img_down[3]);
-	keep_destroying(vars);
-}
+	int	cnt;
 
-void	keep_destroying(t_vars *vars)
-{
-	mlx_destroy_image(vars->mlx, vars->player.img_left[0]);
-	mlx_destroy_image(vars->mlx, vars->player.img_left[1]);
-	mlx_destroy_image(vars->mlx, vars->player.img_left[2]);
-	mlx_destroy_image(vars->mlx, vars->player.img_left[3]);
-	mlx_destroy_image(vars->mlx, vars->player.img_right[0]);
-	mlx_destroy_image(vars->mlx, vars->player.img_right[1]);
-	mlx_destroy_image(vars->mlx, vars->player.img_right[2]);
-	mlx_destroy_image(vars->mlx, vars->player.img_right[3]);
-	mlx_destroy_image(vars->mlx, vars->wall.alt_img[0]);
-	mlx_destroy_image(vars->mlx, vars->wall.alt_img[1]);
-	mlx_destroy_image(vars->mlx, vars->wall.alt_img[2]);
-	mlx_destroy_image(vars->mlx, vars->wall.alt_img[3]);
-	mlx_destroy_image(vars->mlx, vars->wall.alt_img[4]);
-	mlx_destroy_image(vars->mlx, vars->wall.alt_img[5]);
-	mlx_destroy_image(vars->mlx, vars->wall.alt_img[6]);
-	mlx_destroy_image(vars->mlx, vars->wall.alt_img[7]);
-	mlx_destroy_image(vars->mlx, vars->wall.alt_img[8]);
+	mlx_destroy_image(vars->mlx, vars->chest.img);
+	cnt = 8;
+	while (cnt-- > 0)
+		mlx_destroy_image(vars->mlx, vars->wall.img[cnt]);
+	mlx_destroy_image(vars->mlx, vars->floor.img);
+	cnt = 7;
+	while (cnt-- > 1)
+		mlx_destroy_image(vars->mlx, vars->key.img[cnt]);
+	cnt = 4;
+	while (cnt-- > 0)
+	{
+		mlx_destroy_image(vars->mlx, vars->player.img_up[cnt]);
+		mlx_destroy_image(vars->mlx, vars->player.img_down[cnt]);
+		mlx_destroy_image(vars->mlx, vars->player.img_left[cnt]);
+		mlx_destroy_image(vars->mlx, vars->player.img_right[cnt]);
+	}
+	cnt = 8;
+	while (cnt-- > 0)
+		mlx_destroy_image(vars->mlx, vars->wall.alt_img[cnt]);
 }

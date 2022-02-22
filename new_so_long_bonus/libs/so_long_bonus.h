@@ -6,7 +6,7 @@
 /*   By: jvigneau <jvigneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 15:45:22 by jvigneau          #+#    #+#             */
-/*   Updated: 2022/02/22 11:19:12 by jvigneau         ###   ########.fr       */
+/*   Updated: 2022/02/22 18:03:52 by jvigneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,10 @@ typedef struct s_text
 {
 	void	*box_img;
 	char	*message;
+	void	*box_txt;
+	void	*coins_txt;
 	int		on_or_off;
+	int		txt_num;
 }				t_text;
 
 typedef struct s_floor
@@ -55,6 +58,11 @@ typedef struct s_floor
 	void	*img;
 
 }			t_floor;
+
+typedef struct s_exit
+{
+	void	*img;
+}				t_exit;
 
 typedef struct s_chest
 {
@@ -68,7 +76,6 @@ typedef struct s_wall
 {
 	void	*img[9];
 	void	*alt_img[9];
-	void	*alt_alt_img;
 	int		animation;
 	int		num;
 }				t_wall;
@@ -76,10 +83,13 @@ typedef struct s_wall
 typedef struct s_key
 {
 	void	*img[7];
+	void	*img_key;
 	int		collect_in_map;
 	int		collect_on_player;
 	int		animation_coin;
 	int		num[0];
+	char	*collect_choice[1000];
+	int		on;
 }				t_key;
 
 typedef struct s_player
@@ -96,6 +106,7 @@ typedef struct s_player
 	int		animation;
 	int		num;
 	int		nb_moves;
+	int		has_key;
 }				t_player;
 
 typedef struct s_ennemies
@@ -103,6 +114,7 @@ typedef struct s_ennemies
 	void	*img;
 	int		***positions;
 	int		**spawner_location;
+	int		num;
 }				t_ennemies;
 
 typedef struct s_map
@@ -129,8 +141,12 @@ typedef struct s_init
 typedef struct s_errolog
 {
 	char	*errorlog;
-	void	*nokey;
 }				t_errorlog;
+
+typedef struct s_score
+{
+	int	score;
+}				t_score;
 
 typedef struct s_vars
 {
@@ -146,6 +162,8 @@ typedef struct s_vars
 	t_text		text;
 	t_init		init;
 	t_errorlog	errorlog;
+	t_exit		exit;
+	t_score		score;
 }				t_vars;
 
 // misc render functions
@@ -158,6 +176,8 @@ int		render_chest(t_vars *vars, int x, int y);
 void	render_walleye(t_vars *vars, int x, int y);
 void	put_img_player(t_vars *vars, int x, int y);
 int		player_render(t_vars *vars, int x, int y);
+int		render_exit(t_vars *vars, int x, int y);
+int		render_key(t_vars *vars, int x, int y);
 // init functions
 int		var_init(t_vars *vars, int ac, char **av);
 int		init_all(t_vars *vars);
@@ -179,6 +199,7 @@ int		moves_key(int keysum, t_vars *vars);
 int		animation_coin(t_vars *vars);
 int		timer(t_vars *vars);
 void	text_box(t_vars *vars, int x, int y);
+int		print_score(t_vars *vars);
 // map related functions
 int		malloc_map(t_vars *var);
 int		read_map(t_vars *vars);
@@ -193,9 +214,10 @@ int		map_true(t_vars *vars);
 int		collision_wall(t_vars *vars, int direction);
 int		collision_wall_2(t_vars *vars, int direction);
 int		collision_keylock(t_vars *vars, int direction);
+int		check_collect(t_vars *vars, int x, int y);
+int		check_for_text(t_vars *vars);
 // destroyssssssss
 void	destroy_erthing(t_vars *vars);
-void	keep_destroying(t_vars *vars);
 void	error_map_exit(t_vars *vars);
 int		x_to_close(t_vars *vars);
 // moves counter

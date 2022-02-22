@@ -6,7 +6,7 @@
 /*   By: jvigneau <jvigneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 11:07:40 by jvigneau          #+#    #+#             */
-/*   Updated: 2022/02/19 11:54:20 by jvigneau         ###   ########.fr       */
+/*   Updated: 2022/02/22 17:51:02 by jvigneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,12 @@ void	init_all7(t_vars *vars, char *path, int width, int height)
 	vars->text.box_img = mlx_xpm_file_to_image(vars->mlx, path,
 			&width, &height);
 	path = "assets/others/nokey.xpm";
-	vars->errorlog.nokey = mlx_xpm_file_to_image(vars->mlx, path,
+	vars->text.box_txt = mlx_xpm_file_to_image(vars->mlx, path,
+			&width, &height);
+	path = "assets/collectibles/key.xpm";
+	vars->key.img_key = mlx_xpm_file_to_image(vars->mlx, path,
+			&width, &height);
+	path = "assets/others/coins.xpm";
+	vars->text.coins_txt = mlx_xpm_file_to_image(vars->mlx, path,
 			&width, &height);
 }

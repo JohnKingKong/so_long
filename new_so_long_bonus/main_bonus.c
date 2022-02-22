@@ -6,7 +6,7 @@
 /*   By: jvigneau <jvigneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 15:45:22 by jvigneau          #+#    #+#             */
-/*   Updated: 2022/02/22 11:17:01 by jvigneau         ###   ########.fr       */
+/*   Updated: 2022/02/22 18:14:04 by jvigneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 int	var_init(t_vars *vars, int ac, char **av)
 {
-	vars->chest.for_chest = 0;
-	vars->key.num[0] = '1';
+	vars->key.num[0] = 1;
 	vars->key.collect_in_map = 0;
+	vars->key.collect_on_player = 0;
 	vars->key.animation_coin = 0;
 	vars->player.animation = 0;
 	vars->player.num = 1;
@@ -29,6 +29,10 @@ int	var_init(t_vars *vars, int ac, char **av)
 	vars->player.nb_moves = 0;
 	vars->text.on_or_off = FALSE;
 	vars->player.looking_direction = RIGHT;
+	vars->key.on = FALSE;
+	vars->player.has_key = FALSE;
+	vars->text.txt_num = 0;
+	vars->score.score = 1000;
 	srand(time(NULL));
 	temp_init(vars, ac, av);
 	return (TRUE);
@@ -100,6 +104,7 @@ int	main(int ac, char **av)
 	}
 	mlx_string_put(vars.mlx, vars.mlx_win, 40, 32, 0xFFBE149A,
 		"Number Of Moves :0");
+	mlx_string_put(vars.mlx, vars.mlx_win, 40, 64, 0xFFBE149A, "SCORE : 0");
 	mlx_hook(vars.mlx_win, 2, 0, &handle_keypress_windows, &vars);
 	mlx_hook(vars.mlx_win, 17, 0, &x_to_close, &vars);
 	mlx_loop_hook(vars.mlx, &print_moves, &vars);

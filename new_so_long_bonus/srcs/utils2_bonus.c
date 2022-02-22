@@ -6,7 +6,7 @@
 /*   By: jvigneau <jvigneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 15:45:22 by jvigneau          #+#    #+#             */
-/*   Updated: 2022/02/22 10:59:11 by jvigneau         ###   ########.fr       */
+/*   Updated: 2022/02/22 13:09:07 by jvigneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,8 @@ int	animation_coin(t_vars *vars)
 
 void	text_box(t_vars *vars, int x, int y)
 {
-	if (vars->map.str[y][x] == 'C')
-		render_collectibles(vars, x * 32, y * 32);
+	if (vars->map.str[y][x] == 'C' || vars->map.str[y][x] == 'K')
+		render_key(vars, x * 32, y * 32);
 	if (y == vars->player.pos_y / 32
 		&& x == vars->player.pos_x / 32)
 		player_load_asset(vars, x * 32, y * 32);

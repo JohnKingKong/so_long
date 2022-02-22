@@ -6,7 +6,7 @@
 /*   By: jvigneau <jvigneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 15:45:22 by jvigneau          #+#    #+#             */
-/*   Updated: 2022/02/18 14:31:38 by jvigneau         ###   ########.fr       */
+/*   Updated: 2022/02/22 16:21:51 by jvigneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,8 @@ int	collision_keylock(t_vars *vars, int direction)
 	if (direction == UP && vars->player.pos_y - 32 == vars->chest.pos_chest_y
 		&& vars->player.pos_x == vars->chest.pos_chest_x)
 	{
-		vars->text.on_or_off = TRUE;
-		print_box(vars);
-		return (TRUE);
+		if (check_for_text(vars) == TRUE)
+			return (TRUE);
 	}
 	if (direction == DOWN && vars->player.pos_y + 32 == vars->chest.pos_chest_y
 		&& vars->player.pos_x == vars->chest.pos_chest_x)
@@ -70,5 +69,24 @@ int	collision_keylock(t_vars *vars, int direction)
 	if (direction == RIGHT && vars->player.pos_x + 32 == vars->chest.pos_chest_x
 		&& vars->player.pos_y == vars->chest.pos_chest_y)
 		return (TRUE);
+	return (FALSE);
+}
+
+int	check_for_text(t_vars *vars)
+{
+	if (vars->player.has_key == FALSE)
+	{
+		vars->text.on_or_off = TRUE;
+		print_box(vars);
+		return (TRUE);
+	}
+	else if (vars->key.collect_in_map > vars->key.collect_on_player)
+	{
+		vars->text.on_or_off = TRUE;
+		print_box(vars);
+		return (TRUE);
+	}
+	else if (vars->player.has_key == TRUE)
+		x_to_close(vars);
 	return (FALSE);
 }
