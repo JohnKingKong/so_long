@@ -6,7 +6,7 @@
 /*   By: jvigneau <jvigneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 15:45:22 by jvigneau          #+#    #+#             */
-/*   Updated: 2022/02/19 12:01:09 by jvigneau         ###   ########.fr       */
+/*   Updated: 2022/02/23 14:17:12 by jvigneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ int	var_init(t_vars *vars)
 	vars->init.ok_e = FALSE;
 	vars->init.ok_0 = FALSE;
 	vars->player.nb_moves = 0;
-	vars->errorlog.errorlog = malloc(sizeof(char) * 1000);
+/*	vars->errorlog.errorlog = malloc(sizeof(char) * 1000);
 	if (!vars->errorlog.errorlog)
-		return (FALSE);
+		return (FALSE);*/
 	return (TRUE);
 }
 
@@ -38,8 +38,7 @@ int	main(int ac, char **av)
 	t_vars	vars;
 	int		err_map;
 
-	if (!var_init(&vars))
-		return (-1);
+	var_init(&vars);
 	if (ac == 2)
 		vars.map.path = av[1];
 	printf("%s\n", vars.map.path);

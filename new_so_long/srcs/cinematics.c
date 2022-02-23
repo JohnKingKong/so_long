@@ -12,20 +12,6 @@
 
 #include "../libs/so_long.h"
 
-/*int render_cinematic(t_vars *vars)
-{
-	char	*path;
-	int width;
-	int height;
-
-	path = "./assets/cinematics/cinematic_1.xpm";
-	vars->cine.img = mlx_xpm_file_to_image(vars->mlx, path, &width, &height);
-	mlx_put_image_to_window(vars->mlx, vars->mlx_win, vars->cine.img, 0, 0);
-	printf("%s\n", path);
-	
-	return (TRUE);
-}*/
-
 int	timer(t_vars *vars)
 {
 	if (++vars->key.animation_coin > 10 || vars->key.animation_coin < 0)
@@ -77,4 +63,3 @@ int	animation_coin(t_vars *vars)
 	}
 	return (TRUE);
 }
-// int	init_erthing(t_vars *vars)
