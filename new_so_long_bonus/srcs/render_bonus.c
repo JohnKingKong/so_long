@@ -6,7 +6,7 @@
 /*   By: jvigneau <jvigneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 15:45:22 by jvigneau          #+#    #+#             */
-/*   Updated: 2022/02/22 17:44:19 by jvigneau         ###   ########.fr       */
+/*   Updated: 2022/02/24 16:56:41 by jvigneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,19 @@ void	render_wall(t_vars *vars, int x, int y)
 		[vars->map.wall_nb[y / 32][x / 32]], x, y);
 }
 
-int	player_load_asset(t_vars *vars, int x, int y)
+int	check_collect(t_vars *vars, int x, int y)
 {
-	vars->player.pos_x = x;
-	vars->player.pos_y = y;
-	render_floor(vars, x, y);
-	put_img_player(vars, x, y);
+	if (vars->map.str[y][x] == 'C')
+	{
+		vars->key.collect_on_player++;
+		vars->map.str[y][x] = '0';
+	}
+	if (vars->map.str[y][x] == 'K')
+	{
+		vars->key.collect_on_player++;
+		vars->map.str[y][x] = '0';
+		vars->player.has_key = TRUE;
+	}
 	return (TRUE);
 }
 

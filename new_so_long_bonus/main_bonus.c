@@ -6,7 +6,7 @@
 /*   By: jvigneau <jvigneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 15:45:22 by jvigneau          #+#    #+#             */
-/*   Updated: 2022/02/22 18:14:04 by jvigneau         ###   ########.fr       */
+/*   Updated: 2022/03/01 17:34:32 by jvigneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	var_init(t_vars *vars, int ac, char **av)
 	vars->init.rdm = 0;
 	vars->map.cnt = 0;
 	vars->init.ok_p = 0;
-	vars->init.ok_e = FALSE;
+	vars->init.ok_e = 0;
 	vars->player.nb_moves = 0;
 	vars->text.on_or_off = FALSE;
 	vars->player.looking_direction = RIGHT;
@@ -33,22 +33,25 @@ int	var_init(t_vars *vars, int ac, char **av)
 	vars->player.has_key = FALSE;
 	vars->text.txt_num = 0;
 	vars->score.score = 1000;
+	vars->map.len_start = 0;
+	vars->map.len_end = 0;
 	srand(time(NULL));
-	temp_init(vars, ac, av);
+	if (keep_initing(vars, ac, av) == FALSE)
+		return (FALSE);
 	return (TRUE);
 }
 
-int	temp_init(t_vars *vars, int ac, char **av)
+int	keep_initing(t_vars *vars, int ac, char **av)
 {
-	char	*path;
-
 	if (ac == 2)
 		vars->map.path = av[1];
 	else
-		vars->map.path = "./utils/map.txt";
-	path = ft_substr(vars->map.path, 8, 8);
-	printf("\033[0;37mMap loaded : \033[0;32m%s\n", path);
-	free (path);
+		vars->map.path = "utils/map1.ber";
+	if (!ft_strnstr(vars->map.path, ".ber", ft_strlen(vars->map.path)))
+	{
+		vars->errorlog.errorlog = "The file chosen isn't a .ber!!";
+		return (FALSE);
+	}
 	return (TRUE);
 }
 
@@ -67,8 +70,8 @@ void	check_elements(t_vars *vars)
 				vars->key.collect_in_map++;
 			else if (vars->map.str[y][x] == 'P')
 				vars->init.ok_p++;
-			else if (vars->map.str[y][x] == 'E' && vars->init.ok_e == FALSE)
-				vars->init.ok_e = TRUE;
+			else if (vars->map.str[y][x] == 'E')
+				vars->init.ok_e++;
 			x++;
 		}
 		x = 0;
@@ -95,13 +98,18 @@ int	main(int ac, char **av)
 	t_vars	vars;
 	int		err_map;
 
-	var_init(&vars, ac, av);
+	if (var_init(&vars, ac, av) == FALSE)
+	{
+		printf("\033[0;31mERROR !\n%s\n", vars.errorlog.errorlog);
+		return (FALSE);
+	}
 	err_map = read_map(&vars);
 	if (err_map == FALSE)
 	{
 		error_map_exit(&vars);
-		return (0);
+		return (FALSE);
 	}
+	//map_loaded(&vars);
 	mlx_string_put(vars.mlx, vars.mlx_win, 40, 32, 0xFFBE149A,
 		"Number Of Moves :0");
 	mlx_string_put(vars.mlx, vars.mlx_win, 40, 64, 0xFFBE149A, "SCORE : 0");

@@ -6,7 +6,7 @@
 /*   By: jvigneau <jvigneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/09 12:44:01 by jvigneau          #+#    #+#             */
-/*   Updated: 2022/02/14 16:02:53 by jvigneau         ###   ########.fr       */
+/*   Updated: 2022/02/24 10:56:34 by jvigneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ int	init_all(t_vars *vars)
 	vars->floor.img = mlx_xpm_file_to_image(vars->mlx, path,
 			&width, &height);
 	path = "./assets/collectibles/coin_1.xpm";
-	vars->key.img_1 = mlx_xpm_file_to_image(vars->mlx, path,
+	vars->key.img[0] = mlx_xpm_file_to_image(vars->mlx, path,
 			&width, &height);
 	path = "./assets/collectibles/coin_2.xpm";
-	vars->key.img_2 = mlx_xpm_file_to_image(vars->mlx, path,
+	vars->key.img[1] = mlx_xpm_file_to_image(vars->mlx, path,
 			&width, &height);
 	init_all2(vars, path, width, height);
 	return (TRUE);
@@ -40,16 +40,16 @@ int	init_all(t_vars *vars)
 void	init_all2(t_vars *vars, char *path, int width, int height)
 {
 	path = "./assets/collectibles/coin_3.xpm";
-	vars->key.img_3 = mlx_xpm_file_to_image(vars->mlx, path,
+	vars->key.img[2] = mlx_xpm_file_to_image(vars->mlx, path,
 			&width, &height);
 	path = "./assets/collectibles/coin_4.xpm";
-	vars->key.img_4 = mlx_xpm_file_to_image(vars->mlx, path,
+	vars->key.img[3] = mlx_xpm_file_to_image(vars->mlx, path,
 			&width, &height);
 	path = "./assets/collectibles/coin_5.xpm";
-	vars->key.img_5 = mlx_xpm_file_to_image(vars->mlx, path,
+	vars->key.img[4] = mlx_xpm_file_to_image(vars->mlx, path,
 			&width, &height);
 	path = "./assets/collectibles/coin_6.xpm";
-	vars->key.img_6 = mlx_xpm_file_to_image(vars->mlx, path,
+	vars->key.img[5] = mlx_xpm_file_to_image(vars->mlx, path,
 			&width, &height);
 	path = "./assets/player/player_up1.xpm";
 	vars->player.img_up[0] = mlx_xpm_file_to_image(vars->mlx, path,

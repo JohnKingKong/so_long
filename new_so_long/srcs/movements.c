@@ -6,7 +6,7 @@
 /*   By: jvigneau <jvigneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 15:45:22 by jvigneau          #+#    #+#             */
-/*   Updated: 2022/02/16 13:23:26 by jvigneau         ###   ########.fr       */
+/*   Updated: 2022/03/01 10:55:59 by jvigneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,15 @@ int	move_up(t_vars *vars, int x, int y)
 		i++;
 	}
 	if (vars->map.str[(y / 32) - 1][x / 32] == 'C')
+	{
+		vars->key.collect_on_player++;
 		vars->map.str[(y / 32) - 1][x / 32] = '0';
+	}
 	mlx_put_image_to_window(vars->mlx, vars->mlx_win, vars->player.img_up,
 		vars->player.pos_x, vars->player.pos_y);
 	render_floor(vars, x, y);
 	vars->player.nb_moves++;
-	printf("Number of moves : %d\n", vars->player.nb_moves);
+	printf("\nNumber of moves : %d\n", vars->player.nb_moves);
 	return (TRUE);
 }
 
@@ -48,11 +51,14 @@ int	move_down(t_vars *vars, int x, int y)
 		i++;
 	}
 	if (vars->map.str[(y / 32) + 1][x / 32] == 'C')
+	{
+		vars->key.collect_on_player++;
 		vars->map.str[(y / 32) + 1][x / 32] = '0';
+	}
 	player_load_asset(vars, vars->player.pos_x, vars->player.pos_y);
 	render_floor(vars, x, y);
 	vars->player.nb_moves++;
-	printf("Number of moves : %d\n", vars->player.nb_moves);
+	printf("\nNumber of moves : %d\n", vars->player.nb_moves);
 	return (TRUE);
 }
 
@@ -70,12 +76,15 @@ int	move_left(t_vars *vars, int x, int y)
 		i++;
 	}
 	if (vars->map.str[(y / 32)][(x / 32) - 1] == 'C')
+	{
+		vars->key.collect_on_player++;
 		vars->map.str[(y / 32)][(x / 32) - 1] = '0';
+	}
 	mlx_put_image_to_window(vars->mlx, vars->mlx_win, vars->player.img_left,
 		vars->player.pos_x, vars->player.pos_y);
 	render_floor(vars, x, y);
 	vars->player.nb_moves++;
-	printf("Number of moves : %d\n", vars->player.nb_moves);
+	printf("\nNumber of moves : %d\n", vars->player.nb_moves);
 	return (TRUE);
 }
 
@@ -93,12 +102,15 @@ int	move_right(t_vars *vars, int x, int y)
 		i++;
 	}
 	if (vars->map.str[(y / 32)][(x / 32) + 1] == 'C')
+	{
+		vars->key.collect_on_player++;
 		vars->map.str[(y / 32)][(x / 32) + 1] = '0';
+	}
 	mlx_put_image_to_window(vars->mlx, vars->mlx_win, vars->player.img_right,
 		vars->player.pos_x, vars->player.pos_y);
 	render_floor(vars, x, y);
 	vars->player.nb_moves++;
-	printf("Number of moves : %d\n", vars->player.nb_moves);
+	printf("\nNumber of moves : %d\n", vars->player.nb_moves);
 	return (TRUE);
 }
 

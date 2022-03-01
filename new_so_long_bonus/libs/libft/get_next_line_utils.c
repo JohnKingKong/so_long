@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jvigneau <jvigneau@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/10 09:27:32 by jvigneau          #+#    #+#             */
-/*   Updated: 2021/12/10 09:27:32 by jvigneau         ###   ########.fr       */
+/*   Created: 2021/12/14 13:53:16 by jvigneau          #+#    #+#             */
+/*   Updated: 2022/01/15 16:36:03 by jvigneau         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,27 +15,27 @@
 int	the_one_that_reads(char **buffer, int fd)
 {
 	int		len_read;
-	char	*temp_buffer;
+	char	*new_buffer;
 
-	while (!*buffer || !len_n_search(*buffer, '\n'))
+	while (!*buffer || !len_n_seek(*buffer, '\n'))
 	{
-		temp_buffer = malloc(sizeof(char) * BUFFER_SIZE + 1);
-		if (!temp_buffer)
+		new_buffer = malloc(sizeof(char) * 1 + 1);
+		if (!new_buffer)
 			return (0);
-		len_read = read(fd, temp_buffer, BUFFER_SIZE);
+		len_read = read(fd, new_buffer, 1);
 		if (len_read <= 0)
 		{
-			free(temp_buffer);
+			free(new_buffer);
 			return (0);
 		}
-		temp_buffer[len_read] = '\0';
-		*buffer = the_one_that_joins(*buffer, temp_buffer);
-		free(temp_buffer);
+		new_buffer[len_read] = '\0';
+		*buffer = the_one_that_joins(*buffer, new_buffer);
+		free(new_buffer);
 	}
-	return (len_n_search(*buffer, '\n'));
+	return (len_n_seek(*buffer, '\n'));
 }
 
-int	len_n_search(char *str, char to_search)
+int	len_n_seek(char *str, char to_search)
 {
 	int	len;
 
@@ -52,48 +52,48 @@ int	len_n_search(char *str, char to_search)
 		return (len + 1);
 }
 
-char	*the_one_that_joins(char *buffer, char *temp_buffer)
+char	*the_one_that_joins(char *buffer, char *line_read)
 {
-	int		i;
-	int		j;
-	int		len;
 	char	*new_buffer;
+	int		len_tot;
+	int		cnt1_buffer;
+	int		cnt2_line;
 
-	i = 0;
-	j = 0;
-	len = len_n_search(buffer, 0) + len_n_search(temp_buffer, 0);
-	new_buffer = malloc(sizeof(char) * len + 1);
+	cnt1_buffer = 0;
+	cnt2_line = 0;
+	len_tot = len_n_seek(buffer, 0) + len_n_seek(line_read, 0);
+	new_buffer = malloc(sizeof(char) * len_tot + 1);
 	if (!new_buffer)
-		return (0);
-	while (buffer && buffer[i])
+		return (NULL);
+	while (buffer && buffer[cnt1_buffer])
 	{
-		new_buffer[i] = buffer[i];
-		i++;
+		new_buffer[cnt1_buffer] = buffer[cnt1_buffer];
+		cnt1_buffer++;
 	}
 	free(buffer);
-	while (temp_buffer[j])
+	while (line_read && line_read[cnt2_line])
 	{
-		new_buffer[i] = temp_buffer[j];
-		i++;
-		j++;
+		new_buffer[cnt1_buffer] = line_read[cnt2_line];
+		cnt1_buffer++;
+		cnt2_line++;
 	}
-	new_buffer[i] = '\0';
+	new_buffer[cnt1_buffer] = '\0';
 	return (new_buffer);
 }
 
-void	the_one_that_copies(char **buffer, char **final_line, int len)
+void	the_one_that_copies(char **buffer, char **line, int len)
 {
-	int		i;
+	int		cnt;
 	char	*new_buffer;
 
-	i = 0;
-	while (i < len)
+	cnt = 0;
+	while (cnt < len)
 	{
-		(*final_line)[i] = (*buffer)[i];
-		i++;
+		(*line)[cnt] = (*buffer)[cnt];
+		cnt++;
 	}
-	(*final_line)[i] = '\0';
-	if (!len_n_search(*buffer, '\n'))
+	(*line)[cnt] = '\0';
+	if (!len_n_seek(*buffer, '\n'))
 	{
 		free(*buffer);
 		*buffer = NULL;
@@ -108,20 +108,20 @@ void	the_one_that_copies(char **buffer, char **final_line, int len)
 
 char	*the_one_that_doops(char *buffer)
 {
-	char	*new_buffer;
-	int		i;
+	int		cnt;
 	int		len;
+	char	*final_line;
 
-	i = 0;
-	len = len_n_search(buffer, 0);
-	new_buffer = malloc(sizeof(char) * len + 1);
-	if (!new_buffer)
-		return (0);
-	while (buffer[i])
+	cnt = 0;
+	len = len_n_seek(buffer, 0);
+	final_line = malloc(sizeof(char) * len + 1);
+	if (!final_line)
+		return (NULL);
+	while (buffer[cnt])
 	{
-		new_buffer[i] = buffer[i];
-		i++;
+		final_line[cnt] = buffer[cnt];
+		cnt++;
 	}
-	new_buffer[i] = '\0';
-	return (new_buffer);
+	final_line[cnt] = '\0';
+	return (final_line);
 }

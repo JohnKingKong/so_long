@@ -6,7 +6,7 @@
 /*   By: jvigneau <jvigneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 15:45:22 by jvigneau          #+#    #+#             */
-/*   Updated: 2022/02/22 17:45:26 by jvigneau         ###   ########.fr       */
+/*   Updated: 2022/03/01 17:46:03 by jvigneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,19 @@
 
 int	malloc_map(t_vars *vars)
 {
-	vars->map.str = malloc(sizeof(t_vars) * 1000);
+	char	*temp;
+
+	vars->map.fd = open(vars->map.path, O_RDONLY);
+	if (vars->map.fd < 0)
+		return (FALSE);
+	temp = get_next_line(vars->map.fd);
+	if (!temp)
+		exit(0);
+	vars->map.len_start = len_n_seek(temp, '\0') - 2;
+	vars->map.str = malloc(sizeof(t_vars)
+			* vars->map.len_start);
+	close(vars->map.fd);
+	free(temp);
 	if (!vars->map.str)
 		return (FALSE);
 	return (TRUE);
@@ -22,26 +34,27 @@ int	malloc_map(t_vars *vars)
 
 int	read_map(t_vars *vars)
 {
-	malloc_map(vars);
-	vars->map.fd = open(vars->map.path, O_RDONLY);
-	if (vars->map.fd < 0)
+	vars->map.cnt = 0;
+	if (malloc_map(vars) == FALSE)
 	{
-		vars->errorlog.errorlog = "The path to the map is corrupt!\n";
-		return (FALSE);
+		printf("\033[0;31mERROR !\nThe path to the map isn't valid\n");
+		exit(0);
 	}
+	vars->map.fd = open (vars->map.path, O_RDONLY);
 	vars->map.str[vars->map.cnt] = get_next_line(vars->map.fd);
-	vars->map.width = (ft_strlen(vars->map.str[vars->map.cnt]) - 2) * 32;
+	vars->map.width = vars->map.len_start * 32;
 	while (vars->map.str[vars->map.cnt])
 	{
 		vars->map.cnt++;
 		vars->map.str[vars->map.cnt] = get_next_line(vars->map.fd);
 	}
 	vars->map.height = vars->map.cnt * 32;
+	vars->map.len_end = len_n_seek(vars->map.str[vars->map.cnt - 1], '\0');
 	close(vars->map.fd);
 	if (map_validity(vars) == TRUE)
 	{
-		map_true(vars);
-		return (TRUE);
+		if (map_true(vars) == TRUE)
+			return (TRUE);
 	}
 	return (FALSE);
 }
@@ -51,11 +64,11 @@ int	map_true(t_vars *vars)
 	vars->mlx = mlx_init();
 	if (vars->mlx == NULL)
 		return (FALSE);
-	init_all(vars);
 	vars->mlx_win = mlx_new_window(vars->mlx, vars->map.width,
 			vars->map.height, "So long!");
 	if (vars->mlx_win == NULL)
 		return (FALSE);
+	init_all(vars);
 	render_all(vars, vars->map.str, vars->map.cnt);
 	return (TRUE);
 }
@@ -84,14 +97,17 @@ int	check_map_render(t_vars *vars, char **str, int x, int y)
 
 int	map_validity(t_vars *vars)
 {
-	if (check_borders(vars) == FALSE)
-		return (FALSE);
-	if (vars->map.width == vars->map.height)
+	if (vars->map.width == vars->map.height || vars->map.len_start != vars->map.len_end - 1)
 	{
+		printf("len start : %d, len end: %d\n", vars->map.len_start, vars->map.len_end - 1);
+		printf("width : %d, heigth  %d\n", vars->map.width, vars->map.height);
 		vars->errorlog.errorlog = "The map must be a rectangle!";
 		return (FALSE);
 	}
-	if (confirm_elements(vars) == FALSE)
+	else if (check_borders(vars) == FALSE)
 		return (FALSE);
-	return (TRUE);
+	else if (confirm_elements(vars) == FALSE)
+		return (FALSE);
+	else
+		return (TRUE);
 }

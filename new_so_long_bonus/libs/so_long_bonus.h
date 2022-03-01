@@ -6,7 +6,7 @@
 /*   By: jvigneau <jvigneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 15:45:22 by jvigneau          #+#    #+#             */
-/*   Updated: 2022/02/22 18:03:52 by jvigneau         ###   ########.fr       */
+/*   Updated: 2022/03/01 17:32:20 by jvigneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@
 # include "./libft/libft.h"
 # include <time.h>
 # include <stdlib.h>
-/*#include <X11/keysym.h>
-#include <X11/X.h		>*/
 
 enum e_bool
 {
@@ -88,7 +86,7 @@ typedef struct s_key
 	int		collect_on_player;
 	int		animation_coin;
 	int		num[0];
-	char	*collect_choice[1000];
+	char	*savior[1000];
 	int		on;
 }				t_key;
 
@@ -128,6 +126,8 @@ typedef struct s_map
 	int		pos_exit_y;
 	char	*path;
 	int		wall_nb[1000][1000];
+	int		len_start;
+	int		len_end;
 }				t_map;
 
 typedef struct s_init
@@ -187,7 +187,8 @@ void	init_all4(t_vars *vars, char *path, int width, int height);
 void	init_all5(t_vars *vars, char *path, int width, int height);
 void	init_all6(t_vars *vars, char *path, int width, int height);
 void	init_all7(t_vars *vars, char *path, int width, int height);
-int		temp_init(t_vars *vars, int ac, char **av);
+int		keep_initing(t_vars *vars, int ac, char **av);
+int		map_loaded(t_vars *vars);
 // player movement functions
 int		move_up(t_vars *vars, int x, int y);
 int		move_down(t_vars *vars, int x, int y);

@@ -99,18 +99,19 @@ int	move_right(t_vars *vars, int x, int y)
 	return (TRUE);
 }
 
-int	check_collect(t_vars *vars, int x, int y)
+int	player_render(t_vars *vars, int x, int y)
 {
-	if (vars->map.str[y][x] == 'C')
-	{
-		vars->key.collect_on_player++;
-		vars->map.str[y][x] = '0';
-	}
-	if (vars->map.str[y][x] == 'K')
-	{
-		vars->key.collect_on_player++;
-		vars->map.str[y][x] = '0';
-		vars->player.has_key = TRUE;
-	}
+	if (vars->player.looking_direction == UP && collision_wall(vars, UP)
+		&& collision_keylock(vars, UP))
+		move_up(vars, x, y);
+	else if (vars->player.looking_direction == DOWN
+		&& collision_wall(vars, DOWN) && collision_keylock(vars, DOWN))
+		move_down(vars, x, y);
+	else if (vars->player.looking_direction == LEFT
+		&& collision_wall(vars, LEFT) && collision_keylock(vars, LEFT))
+		move_left(vars, x, y);
+	else if (vars->player.looking_direction == RIGHT
+		&& collision_wall(vars, RIGHT) && collision_keylock(vars, RIGHT))
+		move_right(vars, x, y);
 	return (TRUE);
 }

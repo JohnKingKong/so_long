@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvigneau <jvigneau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jvigneau <jvigneau@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/10 09:27:32 by jvigneau          #+#    #+#             */
-/*   Updated: 2022/02/15 18:51:50 by jvigneau         ###   ########.fr       */
+/*   Created: 2021/12/14 14:06:35 by jvigneau          #+#    #+#             */
+/*   Updated: 2022/01/25 12:41:19 by jvigneau         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,15 @@
 # define GET_NEXT_LINE_H
 
 # include <unistd.h>
-# include <limits.h>
-# include <fcntl.h>
 # include <stdlib.h>
-# define BUFFER_SIZE 1
+# include <fcntl.h>
+# include <limits.h>
 
 char	*get_next_line(int fd);
 int		the_one_that_reads(char **buffer, int fd);
-int		len_n_search(char *str, char to_search);
-char	*the_one_that_joins(char *buffer, char *temp_buffer);
-void	the_one_that_copies(char **buffer, char **final_line, int len);
+int		len_n_seek(char *str, char to_search);
+char	*the_one_that_joins(char *buffer, char *line_read);
+void	the_one_that_copies(char **buffer, char **line, int len);
 char	*the_one_that_doops(char *buffer);
 
 #endif

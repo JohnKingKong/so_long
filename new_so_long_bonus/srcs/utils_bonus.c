@@ -6,7 +6,7 @@
 /*   By: jvigneau <jvigneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 15:45:22 by jvigneau          #+#    #+#             */
-/*   Updated: 2022/02/22 14:41:26 by jvigneau         ###   ########.fr       */
+/*   Updated: 2022/03/01 15:25:52 by jvigneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,4 +84,14 @@ void	destroy_erthing(t_vars *vars)
 	cnt = 8;
 	while (cnt-- > 0)
 		mlx_destroy_image(vars->mlx, vars->wall.alt_img[cnt]);
+}
+
+int	map_loaded(t_vars *vars)
+{
+	char	*path;
+
+	path = ft_substr(vars->map.path, 6, 8);
+	printf("\033[0;37mMap loaded : \033[0;32m%s\n", path);
+	free(path);
+	return (TRUE);
 }

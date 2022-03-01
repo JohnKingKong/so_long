@@ -6,7 +6,7 @@
 /*   By: jvigneau <jvigneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 15:45:22 by jvigneau          #+#    #+#             */
-/*   Updated: 2022/02/22 13:09:07 by jvigneau         ###   ########.fr       */
+/*   Updated: 2022/03/01 17:38:18 by jvigneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int	check_borders(t_vars *vars)
 	}
 	while (y < vars->map.height / 32)
 	{
-		if (vars->map.str[y][0] != '1' || vars->map.str[y][x - 2] != '1')
+		if (vars->map.str[y][0] != '1' || vars->map.str[y][x - 1] != '1')
 		{
 			vars->errorlog.errorlog = "The map isn't delimited by borders";
 			return (FALSE);
@@ -120,9 +120,14 @@ int	confirm_elements(t_vars *vars)
 			= "Too many starting postions for the player in the map\n";
 		return (FALSE);
 	}
-	else if (vars->init.ok_e == FALSE)
+	else if (vars->init.ok_e < 0)
 	{
 		vars->errorlog.errorlog = "No exit in the map\n";
+		return (FALSE);
+	}
+	else if (vars->init.ok_e > 1)
+	{
+		vars->errorlog.errorlog = "Too many exits in the map!\n";
 		return (FALSE);
 	}
 	return (TRUE);

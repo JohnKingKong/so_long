@@ -6,7 +6,7 @@
 #    By: jvigneau <jvigneau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/24 11:00:19 by jvigneau          #+#    #+#              #
-#    Updated: 2022/02/15 14:58:03 by jvigneau         ###   ########.fr        #
+#    Updated: 2022/03/01 10:57:39 by jvigneau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 define JR
@@ -61,8 +61,8 @@ define  NL
 
 endef
 
-SRCS	= 	main.c ./srcs/windows.c ./srcs/map.c ./srcs/render.c \
-			./srcs/movements.c ./srcs/utils.c ./srcs/cinematics.c \
+SRCS	= 	main.c ./srcs/utils_2.c ./srcs/map.c ./srcs/render.c \
+			./srcs/movements.c ./srcs/utils.c ./srcs/map_utils.c \
             ./srcs/collisions.c ./srcs/init.c ./srcs/player_render.c \
 		
 OBJS	=	${SRCS:.c=.o}
@@ -93,18 +93,18 @@ all		:	$(NAME)
 clean	:	
 			${RM} ${OBJS}
 			$(FTMAKE) $@
-            $(info ______________________________)
-            $(info $(NL)Cleaning successful!$(NL))
-            $(info ______________________________)
+			$(info ______________________________)
+			$(info $(NL)Cleaning successful!$(NL))
+			$(info ______________________________)
 
 fclean	:	clean
 			$(RM) $(NAME)
 			$(FTMAKE) $@
 			
-re		:	fclean all
-			@echo "path :";\
-			read CHEMIN; \
-			$(RUN) $$CHEMIN
+re      :   fclean all
+			@echo "\n\033[0;37mPlease type in the path to the map \033[0;33m(*leave blank for default map*)\033[0;37m :"; \
+            read CHEMIN; \
+            $(RUN) $$CHEMIN
             
 bonus	:
 			$(FTMAKE)
@@ -117,10 +117,6 @@ tea	:
 	clear
 	@echo "$$TEA"
 
-arg	:
-	@echo "path :";\
-	read CHEM;\
-	echo "$$CHEM"
 .PHONY	:	all clean fclean re bonus jr
 
 
