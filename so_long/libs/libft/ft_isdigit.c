@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvigneau <jvigneau@student.42quebec>       +#+  +:+       +#+        */
+/*   By: jvigneau <jvigneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/14 13:08:15 by jvigneau          #+#    #+#             */
-/*   Updated: 2021/09/25 12:33:09 by jvigneau         ###   ########.fr       */
+/*   Updated: 2022/03/11 11:25:01 by jvigneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 int	ft_isdigit(int c)
 {
-	if ((c >= 48) && (c <= 57 ))
+	if ((c >= 48) && (c <= 57))
 		return (1);
 	return (0);
 }

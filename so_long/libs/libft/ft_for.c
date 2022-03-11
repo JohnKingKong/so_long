@@ -3,15 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   ft_for.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvigneau <jvigneau@student.42quebec>       +#+  +:+       +#+        */
+/*   By: jvigneau <jvigneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/11 11:53:00 by jvigneau          #+#    #+#             */
-/*   Updated: 2021/10/11 11:57:26 by jvigneau         ###   ########.fr       */
+/*   Updated: 2022/03/11 11:24:35 by jvigneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 // mon implementation dun for loop en c
 
-#include "libft.h"
-
-
+// #include "libft.h"
