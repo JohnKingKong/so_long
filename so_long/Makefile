@@ -6,25 +6,25 @@
 #    By: jvigneau <jvigneau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/24 11:00:19 by jvigneau          #+#    #+#              #
-#    Updated: 2022/03/01 10:57:39 by jvigneau         ###   ########.fr        #
+#    Updated: 2022/03/14 12:44:55 by jvigneau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 define JR
 
 	BIG LEAK!!!! A PICTURE OF ME WORKING
 
-                       .="=.
-                      _/.-.-.\_     _
+                        .="=.
+                       /.-.-.\_     _
                      ( ( o o ) )    ))
                       |/  "  \|    //
-      .-------.        \'---'/      //
-     _|~~ ~~  |_       /`"""`\\  ((
-   =(_|_______|_)=    / /_,_\ \\  \\
-     |:::::::::|      \_\\_'__/ \  ))
-     |:::::::[]|       /`  /`~\  |//
-     |o=======.|      /   /    \  /
+      .-------.        \'---'/    //
+     _|~~ ~~  |_       /`"""`\\   ((
+   =(_|_______|_)=    / /_,_\ \\   \\\\
+     |:::::::::|      \_\\_'__/ \   ))
+     |:::::::[]|       /`  /`~\ | //
+     |o=======.|      /   /    \ //
      `"""""""""`  ,--`,--'\/\    /
-                   '-- "--'  '--'
+                  '-- "--'  '--'
 endef
 export JR
 
@@ -32,7 +32,7 @@ define TEA
 
 		TEABAG THAT MOTHERF***ER
 
-           .------.____
+            .------.____
          .-'       \ ___)
       .-'         \\\\
    .-'        ___  \\)
@@ -61,63 +61,62 @@ define  NL
 
 endef
 
-SRCS	= 	main.c ./srcs/utils_2.c ./srcs/map.c ./srcs/render.c \
+SRCS    =   main.c ./srcs/utils_2.c ./srcs/map.c ./srcs/render.c \
 			./srcs/movements.c ./srcs/utils.c ./srcs/map_utils.c \
-            ./srcs/collisions.c ./srcs/init.c ./srcs/player_render.c \
+			./srcs/collisions.c ./srcs/init.c ./srcs/player_render.c \
 		
-OBJS	=	${SRCS:.c=.o}
+OBJS    =   ${SRCS:.c=.o}
 
-BONOBJS	=	${BONUS:.c=.o}
+BONOBJS =   ${BONUS:.c=.o}
 
-CC		=	@gcc
+CC      =   @gcc
 
-RM		=	rm -f
+RM      =   rm -f
 
-CFLAGS	=	-Wall -Wextra -Werror -lmlx -framework OpenGL -framework AppKit -o so_long
+CFLAGS  =   -Wall -Wextra -Werror -lmlx -framework OpenGL -framework AppKit -o so_long
 
-LIBS	=	./libs/libft/libft.a
+LIBS    =   ./libs/libft/libft.a
 
-NAME	=	so_long
-FTMAKE	=	cd ./libs/libft && make -s 
+NAME    =   so_long
+FTMAKE  =   cd ./libs/libft && make -s 
 
-RUN		=	 ./so_long
+RUN     =    ./so_long
 
-CLS		= 	clear
+CLS     =   clear
 
-$(NAME)	:		
+$(NAME) :       
 			$(FTMAKE) 
 			$(CC) $(SRCS) $(LIBS) $(CFLAGS)
 
-all		:	$(NAME) 
+all     :   $(NAME) 
 
-clean	:	
+clean   :   
 			${RM} ${OBJS}
 			$(FTMAKE) $@
 			$(info ______________________________)
 			$(info $(NL)Cleaning successful!$(NL))
 			$(info ______________________________)
 
-fclean	:	clean
+fclean  :   clean
 			$(RM) $(NAME)
 			$(FTMAKE) $@
 			
 re      :   fclean all
-			@echo "\n\033[0;37mPlease type in the path to the map \033[0;33m(*leave blank for default map*)\033[0;37m :"; \
-            read CHEMIN; \
-            $(RUN) $$CHEMIN
-            
-bonus	:
-			$(FTMAKE)
+			
+run :       fclean all
+			@echo "\n\033[0;37mPlease type in the path to the map :"; \
+			read CHEMIN; \
+			$(RUN) $$CHEMIN
 
-jr		: 
-	clear
+jr  :   
+	${CLS}
 	@echo "$$JR"
 
-tea	:
+tea :   
 	clear
 	@echo "$$TEA"
 
-.PHONY	:	all clean fclean re bonus jr
+.PHONY  :   all clean fclean re bonus jr
 
 
 .SILENT :   clean fclean

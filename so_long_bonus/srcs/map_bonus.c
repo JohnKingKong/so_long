@@ -6,7 +6,7 @@
 /*   By: jvigneau <jvigneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 15:45:22 by jvigneau          #+#    #+#             */
-/*   Updated: 2022/03/08 15:53:13 by jvigneau         ###   ########.fr       */
+/*   Updated: 2022/03/14 11:44:06 by jvigneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	malloc_map(t_vars *vars)
 	temp = get_next_line(vars->map.fd);
 	if (!temp)
 	{
-		printf("\033[0;31mERROR !\nThe map file is empty or corrupt!!\n");
+		printf("\033[0;31m\nERROR !\nThe map file is empty or corrupt!!\n\n");
 		exit(0);
 	}
 	vars->map.len_start = len_n_seek(temp, '\0') - 1;
@@ -40,7 +40,7 @@ int	read_map(t_vars *vars)
 	vars->map.cnt = 0;
 	if (malloc_map(vars) == FALSE)
 	{
-		printf("\033[0;31mERROR !\nThe path to the map isn't valid\n");
+		printf("\033[0;31m\nERROR !\nThe path to the map isn't valid\n\n");
 		exit(0);
 	}
 	vars->map.fd = open (vars->map.path, O_RDONLY);
@@ -103,7 +103,7 @@ int	map_validity(t_vars *vars)
 	if (vars->map.width == vars->map.height
 		|| vars->map.len_start != vars->map.len_end)
 	{
-		vars->errorlog.errorlog = "The map must be a rectangle!";
+		vars->errorlog.errorlog = "The map must be a rectangle!\n";
 		return (FALSE);
 	}
 	if (check_borders(vars) == FALSE)

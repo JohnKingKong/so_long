@@ -6,7 +6,7 @@
 /*   By: jvigneau <jvigneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 15:45:22 by jvigneau          #+#    #+#             */
-/*   Updated: 2022/03/10 16:26:14 by jvigneau         ###   ########.fr       */
+/*   Updated: 2022/03/14 11:33:27 by jvigneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,13 @@ int	var_init(t_vars *vars, int ac, char **av)
 
 int	keep_initing(t_vars *vars, int ac, char **av)
 {
+	if (ac != 2)
+	{
+		vars->errorlog.errorlog = "You have to pass a path to a map file!\n";
+		return (FALSE);
+	}
 	if (ac == 2)
 		vars->map.path = av[1];
-	else
-		vars->map.path = "utils/map.ber";
 	if (!ft_strnstr(vars->map.path, ".ber", ft_strlen(vars->map.path))
 		|| vars->map.path[ft_strlen(vars->map.path) - 4] != '.')
 	{

@@ -6,7 +6,7 @@
 /*   By: jvigneau <jvigneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 15:45:22 by jvigneau          #+#    #+#             */
-/*   Updated: 2022/03/10 16:29:44 by jvigneau         ###   ########.fr       */
+/*   Updated: 2022/03/14 11:46:01 by jvigneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,17 @@ int	keep_initing(t_vars *vars, int ac, char **av)
 	vars->map.len_start = 0;
 	vars->map.len_end = 0;
 	vars->init.nono = FALSE;
+	if (ac != 2)
+	{
+		vars->errorlog.errorlog = "You have to pass a path to a map file!\n";
+		return (FALSE);
+	}
 	if (ac == 2)
 		vars->map.path = av[1];
-	else
-		vars->map.path = "utils/map1.ber\0";
 	if (!ft_strnstr(vars->map.path, ".ber\0\n", ft_strlen(vars->map.path))
 		|| vars->map.path[ft_strlen(vars->map.path) - 4] != '.')
 	{
-		vars->errorlog.errorlog = "The file chosen isn't a .ber!!";
+		vars->errorlog.errorlog = "The file chosen isn't a .ber!!\n";
 		return (FALSE);
 	}
 	return (TRUE);
@@ -107,7 +110,7 @@ int	main(int ac, char **av)
 
 	if (var_init(&vars, ac, av) == FALSE)
 	{
-		printf("\033[0;31mERROR !\n%s\n", vars.errorlog.errorlog);
+		printf("\033[0;31m\nERROR !!!!!!\n%s\n", vars.errorlog.errorlog);
 		return (FALSE);
 	}
 	err_map = read_map(&vars);

@@ -6,7 +6,7 @@
 /*   By: jvigneau <jvigneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 11:07:40 by jvigneau          #+#    #+#             */
-/*   Updated: 2022/03/10 15:23:36 by jvigneau         ###   ########.fr       */
+/*   Updated: 2022/03/14 12:03:18 by jvigneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,9 @@ void	init_all7(t_vars *vars, char *path, int width, int height)
 			&width, &height);
 	path = "assets/others/coins.xpm";
 	vars->text.coins_txt = mlx_xpm_file_to_image(vars->mlx, path,
+			&width, &height);
+	path = "assets/others/cont.xpm";
+	vars->text.cont = mlx_xpm_file_to_image(vars->mlx, path,
 			&width, &height);
 }
 

@@ -6,7 +6,7 @@
 /*   By: jvigneau <jvigneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 14:13:42 by jvigneau          #+#    #+#             */
-/*   Updated: 2022/03/01 18:25:51 by jvigneau         ###   ########.fr       */
+/*   Updated: 2022/03/14 12:10:19 by jvigneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,19 @@ int	print_box(t_vars *vars)
 		mlx_put_image_to_window(vars->mlx, vars->mlx_win, vars->text.box_img,
 			vars->map.width / 5, vars->map.height / 5);
 	if (vars->player.has_key == FALSE)
+	{
 		mlx_put_image_to_window(vars->mlx, vars->mlx_win, vars->text.box_txt,
-			vars->map.width / 5 + 50, vars->map.height / 5 + 25);
+			vars->map.width / 5 + 100, vars->map.height / 5 + 20);
+		mlx_put_image_to_window(vars->mlx, vars->mlx_win, vars->text.cont,
+			vars->map.width / 5 + 250, vars->map.height / 5 + 70);
+	}
 	else if (vars->key.collect_in_map > vars->key.collect_on_player)
+	{
 		mlx_put_image_to_window(vars->mlx, vars->mlx_win, vars->text.coins_txt,
-			vars->map.width / 5 + 50, vars->map.height / 5 + 25);
+			vars->map.width / 5 + 100, vars->map.height / 5 + 25);
+		mlx_put_image_to_window(vars->mlx, vars->mlx_win, vars->text.cont,
+			vars->map.width / 5 + 250, vars->map.height / 5 + 70);
+	}
 	return (TRUE);
 }
 

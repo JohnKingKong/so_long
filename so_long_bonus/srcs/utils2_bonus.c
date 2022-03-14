@@ -6,7 +6,7 @@
 /*   By: jvigneau <jvigneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 15:45:22 by jvigneau          #+#    #+#             */
-/*   Updated: 2022/03/08 15:41:20 by jvigneau         ###   ########.fr       */
+/*   Updated: 2022/03/14 11:36:59 by jvigneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int	check_borders(t_vars *vars)
 		if (vars->map.str[0][x - 1] != '1' ||
 			vars->map.str[vars->map.cnt - 1][x - 1] != '1')
 		{
-			vars->errorlog.errorlog = "The map isn't delimited by borders";
+			vars->errorlog.errorlog = "The map isn't delimited by borders\n";
 			return (FALSE);
 		}
 		x++;
@@ -92,7 +92,7 @@ int	check_borders(t_vars *vars)
 	{
 		if (vars->map.str[y][0] != '1' || vars->map.str[y][x - 1] != '1')
 		{
-			vars->errorlog.errorlog = "The map isn't delimited by borders";
+			vars->errorlog.errorlog = "The map isn't delimited by borders\n";
 			return (FALSE);
 		}
 		y++;

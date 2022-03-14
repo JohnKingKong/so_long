@@ -6,25 +6,25 @@
 #    By: jvigneau <jvigneau@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/24 11:00:19 by jvigneau          #+#    #+#              #
-#    Updated: 2022/03/01 11:11:07 by jvigneau         ###   ########.fr        #
+#    Updated: 2022/03/14 12:45:04 by jvigneau         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 define JR
 
-	BIG LEAK!!!! A PICTURE OF ME WORKING
+BIG LEAK!!!! A PICTURE OF ME WORKING
 
-                       .="=.
+                        .="=.
                       _/.-.-.\_     _
                      ( ( o o ) )    ))
                       |/  "  \|    //
-      .-------.        \'---'/      //
-     _|~~ ~~  |_       /`"""`\\  ((
-   =(_|_______|_)=    / /_,_\ \\  \\
-     |:::::::::|      \_\\_'__/ \  ))
-     |:::::::[]|       /`  /`~\  |//
-     |o=======.|      /   /    \  /
+      .-------.        \'---'/    //
+     _|~~ ~~  |_       /`"""`\\   ((
+   =(_|_______|_)=    / /_,_\ \\   \\\\
+     |:::::::::|      \_\\_'__/ \   ))
+     |:::::::[]|       /`  /`~\ | //
+     |o=======.|      /   /    \ //
      `"""""""""`  ,--`,--'\/\    /
-                   '-- "--'  '--'
+                  '-- "--'   '--'
 endef
 export JR
 
@@ -32,7 +32,7 @@ define TEA
 
 		TEABAG THAT MOTHERF***ER
 
-           .------.____
+            .------.____
          .-'       \ ___)
       .-'         \\\\
    .-'        ___  \\)
@@ -62,10 +62,10 @@ define  NL
 endef
 
 SRCS	= 	main_bonus.c ./srcs/windows_bonus.c ./srcs/map_bonus.c \
-            ./srcs/render_bonus.c ./srcs/movements_bonus.c \
-            ./srcs/utils_bonus.c ./srcs/utils2_bonus.c \
-            ./srcs/collisions_bonus.c ./srcs/init_bonus.c \
-            ./srcs/player_render_bonus.c ./srcs/init_bonus2.c \
+			./srcs/render_bonus.c ./srcs/movements_bonus.c \
+			./srcs/utils_bonus.c ./srcs/utils2_bonus.c \
+			./srcs/collisions_bonus.c ./srcs/init_bonus.c \
+			./srcs/player_render_bonus.c ./srcs/init_bonus2.c \
 		
 OBJS	=	${SRCS:.c=.o}
 
@@ -96,19 +96,21 @@ all		:	$(NAME)
 clean	:	
 			${RM} ${OBJS}
 			$(FTMAKE) $@
-            $(info ______________________________)
-            $(info $(NL)Cleaning successful!$(NL))
-            $(info ______________________________)
+			$(info ______________________________)
+			$(info $(NL)Cleaning successful!$(NL))
+			$(info ______________________________)
 
 fclean	:	clean
 			$(RM) $(NAME)
 			$(FTMAKE) $@
 			
 re		:	fclean all
-			@echo "\033[0;37mPlease type in the path to the map \033[0;33m(*leave blank for default map*)\033[0;37m :"; \
+			
+run     :   fclean all
+			@echo "\033[0;37mPlease type in the path to the map :"; \
 			read CHEMIN; \
 			$(RUN) $$CHEMIN
-            
+			
 bonus	:
 			$(FTMAKE)
 

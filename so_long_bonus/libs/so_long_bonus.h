@@ -6,7 +6,7 @@
 /*   By: jvigneau <jvigneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 15:45:22 by jvigneau          #+#    #+#             */
-/*   Updated: 2022/03/08 16:07:38 by jvigneau         ###   ########.fr       */
+/*   Updated: 2022/03/14 12:02:40 by jvigneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct s_text
 	void	*coins_txt;
 	int		on_or_off;
 	int		txt_num;
+	void	*cont;
 }				t_text;
 
 typedef struct s_floor

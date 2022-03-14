@@ -6,7 +6,7 @@
 /*   By: jvigneau <jvigneau@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 15:45:22 by jvigneau          #+#    #+#             */
-/*   Updated: 2022/03/10 16:35:31 by jvigneau         ###   ########.fr       */
+/*   Updated: 2022/03/14 11:21:33 by jvigneau         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	check_borders(t_vars *vars)
 		if (vars->map.str[0][x - 1] != '1' ||
 			vars->map.str[vars->map.cnt - 1][x - 1] != '1')
 		{
-			vars->errorlog.errorlog = "\nThe map isn't delimited by borders\n";
+			vars->errorlog.errorlog = "The map isn't delimited by borders\n";
 			return (FALSE);
 		}
 		x++;
@@ -82,7 +82,7 @@ int	check_borders(t_vars *vars)
 	{
 		if (vars->map.str[y][0] != '1' || vars->map.str[y][x - 1] != '1')
 		{
-			vars->errorlog.errorlog = "\nThe map isn't delimited by borders\n";
+			vars->errorlog.errorlog = "The map isn't delimited by borders\n";
 			return (FALSE);
 		}
 		y++;
@@ -116,17 +116,17 @@ int	keep_confirming(t_vars *vars)
 	if (vars->init.ok_p > 1)
 	{
 		vars->errorlog.errorlog
-			= "\nToo many starting postions for the player in the map\n";
+			= "Too many starting postions for the player in the map";
 		return (FALSE);
 	}
 	else if (vars->init.ok_e == FALSE)
 	{
-		vars->errorlog.errorlog = "\nNo exit in the map\n";
+		vars->errorlog.errorlog = "No exit in the map";
 		return (FALSE);
 	}
 	else if (vars->init.nono == TRUE)
 	{
-		vars->errorlog.errorlog = "\nThere is an unknows character in the map";
+		vars->errorlog.errorlog = "There is an unknows character in the map";
 		return (FALSE);
 	}
 	return (TRUE);
