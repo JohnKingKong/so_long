@@ -3,12 +3,13 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jvigneau <jvigneau@student.42.fr>          +#+  +:+       +#+         #
+#    By: jvigneau <jvigneau@student.42quebec>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/09/24 11:00:19 by jvigneau          #+#    #+#              #
-#    Updated: 2022/03/14 12:45:04 by jvigneau         ###   ########.fr        #
+#    Updated: 2022/03/25 10:34:19 by jvigneau         ###   ########        #
 #                                                                              #
 # **************************************************************************** #
+ #
 define JR
 
 BIG LEAK!!!! A PICTURE OF ME WORKING
@@ -75,7 +76,7 @@ CC		=	@gcc
 
 RM		=	rm -f
 
-CFLAGS	=	-Wall -Wextra -Werror -lmlx -framework OpenGL -framework AppKit -o so_long
+CFLAGS	=	-Wall -Wextra -Werror -lmlx -lXext -lX11 -o so_long
 
 LIBS	=	./libs/libft/libft.a
 

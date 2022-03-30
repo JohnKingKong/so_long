@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_bonus2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvigneau <jvigneau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jvigneau <jvigneau@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 11:07:40 by jvigneau          #+#    #+#             */
-/*   Updated: 2022/03/14 12:03:18 by jvigneau         ###   ########.fr       */
+/*   Updated: 2022/03/25 10:42:38 by jvigneau         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,9 @@ void	init_all7(t_vars *vars, char *path, int width, int height)
 			&width, &height);
 	path = "assets/others/cont.xpm";
 	vars->text.cont = mlx_xpm_file_to_image(vars->mlx, path,
+			&width, &height);
+	path = "assets/ennemies/ennemy.xpm";
+	vars->ennemies.img = mlx_xpm_file_to_image(vars->mlx, path,
 			&width, &height);
 }
 

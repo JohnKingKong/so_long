@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   windows_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvigneau <jvigneau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jvigneau <jvigneau@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 14:13:42 by jvigneau          #+#    #+#             */
-/*   Updated: 2022/03/14 12:10:19 by jvigneau         ###   ########.fr       */
+/*   Updated: 2022/03/25 10:26:51 by jvigneau         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,9 @@
 int	print_moves(t_vars *vars)
 {
 	int		i;
-	int		j;
 	char	*num;
 
 	i = 32;
-	j = 32;
 	while (i <= 256)
 	{
 		check_map_render(vars, vars->map.str, i / 32, 1);

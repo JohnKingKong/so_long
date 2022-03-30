@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvigneau <jvigneau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jvigneau <jvigneau@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 15:45:22 by jvigneau          #+#    #+#             */
-/*   Updated: 2022/03/14 11:46:01 by jvigneau         ###   ########.fr       */
+/*   Updated: 2022/03/30 13:45:14 by jvigneau         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ int	keep_initing(t_vars *vars, int ac, char **av)
 	vars->map.len_start = 0;
 	vars->map.len_end = 0;
 	vars->init.nono = FALSE;
+	vars->ennemies.init = 0;
+	vars->ennemies.num = 0;
 	if (ac != 2)
 	{
 		vars->errorlog.errorlog = "You have to pass a path to a map file!\n";

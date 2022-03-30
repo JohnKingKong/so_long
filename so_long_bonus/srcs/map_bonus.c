@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_bonus.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvigneau <jvigneau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jvigneau <jvigneau@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 15:45:22 by jvigneau          #+#    #+#             */
-/*   Updated: 2022/03/14 11:44:06 by jvigneau         ###   ########.fr       */
+/*   Updated: 2022/03/30 14:28:59 by jvigneau         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,11 @@ int	read_map(t_vars *vars)
 	{
 		vars->map.cnt++;
 		vars->map.str[vars->map.cnt] = get_next_line(vars->map.fd);
+		if (len_n_seek(vars->map.str[vars->map.cnt],'\0') -1 > vars->map.len_start)
+		{
+			vars->errorlog.errorlog = "The map is oddshaped, not like a rectangle!!\n";
+			return (FALSE);
+		}
 	}
 	vars->map.height = vars->map.cnt * 32;
 	vars->map.len_end = len_n_seek(vars->map.str[vars->map.cnt - 1], '\0');
@@ -66,11 +71,17 @@ int	map_true(t_vars *vars)
 {
 	vars->mlx = mlx_init();
 	if (vars->mlx == NULL)
+	{
+		vars->errorlog.errorlog = "Problem with initializing the MLX!\n";
 		return (FALSE);
+	}
 	vars->mlx_win = mlx_new_window(vars->mlx, vars->map.width,
 			vars->map.height, "So long!");
 	if (vars->mlx_win == NULL)
+	{
+		vars->errorlog.errorlog = "Problem initializing the window!\n";
 		return (FALSE);
+	}
 	init_all(vars);
 	render_all(vars, vars->map.str, vars->map.cnt);
 	return (TRUE);
@@ -100,12 +111,6 @@ int	check_map_render(t_vars *vars, char **str, int x, int y)
 
 int	map_validity(t_vars *vars)
 {
-	if (vars->map.width == vars->map.height
-		|| vars->map.len_start != vars->map.len_end)
-	{
-		vars->errorlog.errorlog = "The map must be a rectangle!\n";
-		return (FALSE);
-	}
 	if (check_borders(vars) == FALSE)
 		return (FALSE);
 	if (confirm_elements(vars) == FALSE)

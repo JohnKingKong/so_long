@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   utils2_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvigneau <jvigneau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jvigneau <jvigneau@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 15:45:22 by jvigneau          #+#    #+#             */
-/*   Updated: 2022/03/14 11:36:59 by jvigneau         ###   ########.fr       */
+/*   Updated: 2022/03/30 14:23:49 by jvigneau         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "../libs/so_long_bonus.h"
 
 int	timer(t_vars *vars)
@@ -37,13 +36,13 @@ int	timer(t_vars *vars)
 	}
 	return (TRUE);
 }
-
-int	animation_coin(t_vars *vars)
-{
-	int	y;
-	int	x;
-
-	x = 0;
+ 
+int	animation_coin(t_vars *vars) 
+{ 
+	int	y; 
+	int	x; 
+ 
+	x = 0; 
 	y = 0;
 	timer(vars);
 	while (y < vars->map.cnt)
@@ -52,10 +51,139 @@ int	animation_coin(t_vars *vars)
 		{
 			if (vars->text.on_or_off == FALSE)
 				text_box(vars, x, y);
+			move_ennemies(vars, x, y);
 			x++;
 		}
 		x = 0;
 		y++;
+	}
+	return (TRUE);
+}
+
+
+int	move_ennemies(t_vars *vars, int x, int y)
+{
+	int direction;
+	int i = 0;
+
+	if (++vars->ennemies.timer > 300 || vars->ennemies.timer < 0)
+	{
+		srand(time(NULL));
+		while (i <= vars->ennemies.num)
+		{
+			direction = rand() % 4;
+			if (x == vars->ennemies.positions[i][1] && y == vars->ennemies.positions[i][0])
+			{
+				if (collision_ennemies(vars, x, y, direction) == TRUE)
+				{
+					if (direction == 0)
+					{
+						render_floor(vars, x * 32, y * 32);
+						vars->ennemies.positions[i][1] = x + 1;	
+						mlx_put_image_to_window(vars->mlx, vars->mlx_win, vars->ennemies.img, (x + 1) * 32, (y) * 32);
+					}
+					if (direction == 1)
+					{
+						render_floor(vars, x * 32, y * 32);
+						vars->ennemies.positions[i][1] = x - 1;
+						mlx_put_image_to_window(vars->mlx, vars->mlx_win, vars->ennemies.img, (x - 1) * 32, (y) * 32);
+					}
+					if (direction == 2)
+					{
+						render_floor(vars, x * 32, y * 32);
+						vars->ennemies.positions[i][0] = y + 1;
+						mlx_put_image_to_window(vars->mlx, vars->mlx_win, vars->ennemies.img, (x) * 32, (y + 1) * 32);
+					}
+					if (direction == 3)
+					{
+						render_floor(vars, x * 32, y * 32);
+						vars->ennemies.positions[i][0] = y - 1;
+						mlx_put_image_to_window(vars->mlx, vars->mlx_win, vars->ennemies.img, (x) * 32, (y - 1) * 32);
+					}
+				}
+			}
+			i++;
+		}
+		vars->ennemies.timer = 0;
+	}
+	return (TRUE);
+
+}
+
+int	collision_ennemies(t_vars *vars, int x, int y, int direction)
+{
+	int i = 0;
+	if (direction == 0)
+	{
+		while (i <= vars->ennemies.num)
+		{
+			if (x + 1 == vars->ennemies.positions[i][1] && vars->ennemies.positions[i][0] == y)
+				return (FALSE);
+			i++;
+		}
+		if ((vars->map.str[y][x + 1] >= '1' && vars->map.str[y][x + 1] <= '9') || vars->map.str[y][x + 1] == 'Y'
+			|| vars->map.str[y][x + 1] == 'C' || vars->map.str[y][x + 1] == 'E' || vars->map.str[y][x + 1] == 'K')
+			return (FALSE);
+		if (vars->player.pos_x / 32 == x + 1 && vars->player.pos_y / 32 == y)
+		{
+			printf("\n\n Oh no!!!! You got touched by a stranger and then you died!!!!\n\n");
+			x_to_close(vars);
+			return (FALSE);
+		}
+	}
+	else if (direction == 1)
+	{
+		while (i <= vars->ennemies.num)
+		{
+			if (x - 1 == vars->ennemies.positions[i][1] && vars->ennemies.positions[i][0] == y)
+				return (FALSE);
+			i++;
+		}
+		if ((vars->map.str[y][x - 1] >= '1' && vars->map.str[y][x - 1] <= '9') || vars->map.str[y][x - 1] == 'Y'
+			|| vars->map.str[y][x - 1] == 'C' || vars->map.str[y][x - 1] == 'K' || vars->map.str[y][x - 1] == 'E')
+				return (FALSE);
+		if (vars->player.pos_x / 32 == x - 1 && vars->player.pos_y / 32 == y)
+		{
+			printf("\n\n Oh no!!!! You got touched by a stranger and then you died!!!!\n\n");
+			x_to_close(vars);
+			return (FALSE);
+		}
+	}
+	else if (direction == 2)
+	{
+		while (i <= vars->ennemies.num)
+		{
+			if (y + 1 == vars->ennemies.positions[i][0] && vars->ennemies.positions[i][1] == x)
+				return (FALSE);
+			i++;
+		}
+		if ((vars->map.str[y + 1][x] >= '1' && vars->map.str[y + 1][x] <= '9') || vars->map.str[y + 1][x] == 'Y'
+			|| vars->map.str[y + 1][x] == 'E' || vars->map.str[y + 1][x] == 'K' || vars->map.str[y + 1][x] == 'C')
+			return (FALSE);
+		if (vars->player.pos_y / 32 == y + 1 && vars->player.pos_x / 32 == x)
+		{
+			printf("\n\n Oh no!!!! You got touched by a stranger and then you died!!!!\n\n");
+			x_to_close(vars);
+			return (FALSE);
+		}
+	}
+	else if (direction == 3)
+	{
+		while (i <= vars->ennemies.num)
+		{
+			if (y - 1 == vars->ennemies.positions[i][0] && vars->ennemies.positions[i][1] == x)
+				return (FALSE);
+			i++;
+		}
+		if ((vars->map.str[y - 1][x] >= '1' && vars->map.str[y - 1][x] <= '9') || vars->map.str[y - 1][x] == 'Y'
+			|| vars->map.str[y - 1][x] == 'E' || vars->map.str[y - 1][x] == 'C' || vars->map.str[y - 1][x] == 'K')
+			return (FALSE);
+		if (vars->player.pos_y / 32 == y - 1 && vars->player.pos_x / 32 == x)
+		{
+			printf("\n\n Oh no!!!! You got touched by a stranger and then you died!!!!\n\n");
+			x_to_close(vars);
+			return (FALSE);
+		}
 	}
 	return (TRUE);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long_bonus.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jvigneau <jvigneau@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jvigneau <jvigneau@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/19 15:45:22 by jvigneau          #+#    #+#             */
-/*   Updated: 2022/03/14 12:02:40 by jvigneau         ###   ########.fr       */
+/*   Updated: 2022/03/30 13:44:51 by jvigneau         ###   ########          */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "./libft/libft.h"
 # include <time.h>
 # include <stdlib.h>
+# include <X11/keysym.h>
 
 enum e_bool
 {
@@ -34,11 +35,11 @@ enum e_directions
 
 enum e_keys_on_Mac
 {
-	key_d = 0x02,
-	key_a = 0x00,
-	key_w = 0x0D,
-	key_s = 0x01,
-	Escape = 0x35
+	key_d = XK_Right,
+	key_a = XK_Left,
+	key_w = XK_Up,
+	key_s = XK_Down,
+	Escape = XK_Escape
 };
 
 typedef struct s_text
@@ -111,9 +112,10 @@ typedef struct s_player
 typedef struct s_ennemies
 {
 	void	*img;
-	int		***positions;
-	int		**spawner_location;
+	int		positions[100][2];
+	int		init;
 	int		num;
+	int		timer;
 }				t_ennemies;
 
 typedef struct s_map
@@ -227,5 +229,10 @@ int		x_to_close(t_vars *vars);
 // moves counter
 int		print_moves(t_vars *vars);
 int		print_box(t_vars *vars);
+
+// ennemies functions
+int	put_ennemy(t_vars *vars, int y, int x);
+int	move_ennemies(t_vars *vars, int x, int y);
+int	collision_ennemies(t_vars *vars, int x, int y, int direction);
 
 #endif
